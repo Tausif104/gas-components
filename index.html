@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gas Components</title>
+
+  <!-- css -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/fonts/stylesheet.css ">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+
+<body>
+  <!-- Theme Switcher -->
+  <div class="theme-switcher">
+    <div class="theme-options">
+      <button class="theme-toggle" data-theme="light" aria-label="Light mode">
+        <i class="fas fa-sun"></i>
+      </button>
+      <button class="theme-toggle" data-theme="dark" aria-label="Dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="theme-toggle" data-theme="system" aria-label="System mode">
+        <i class="fas fa-desktop"></i>
+      </button>
+    </div>
+  </div>
+
+  <section class="gas-components-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <!-- gas component wrapper -->
+          <div class="select-gas-components-wrapper">
+            <h4>Select gas components</h4>
+            <div class="gas-components-wrapper">
+              <div class="row">
+                <div class="col-xxl-6 col-xl-12">
+                  <div class="select-gas-components">
+                    <div class="table-responsive">
+                      <table>
+                        <thead class="sticky-table-header">
+                          <tr>
+                            <th>
+                              <span>ID <i class="fas fa-arrow-down"></i></span>
+                            </th>
+                            <th>Description</th>
+                            <th>CAS</th>
+                            <th>Formula</th>
+                            <th>Last Modified</th>
+                            <th>Source </th>
+                            <th></th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr>
+                            <td>1</td>
+                            <td>Hydrogen</td>
+                            <td>1333-74-0</td>
+                            <td>H2</td>
+                            <td>2025-01-01</td>
+                            <td>System</td>
+                            <td><span class="add-button"><i class="fas fa-plus"></i></span></td>
+                          </tr>
+                          <tr>
+                            <td>2</td>
+                            <td>Methane</td>
+                            <td>1333-74-0</td>
+                            <td>H2</td>
+                            <td>2025-01-01</td>
+                            <td>System</td>
+                            <td><span class="add-button"><i class="fas fa-plus"></i></span></td>
+                          </tr>
+                          <tr>
+                            <td>3</td>
+                            <td>Ethane</td>
+                            <td>1333-74-0</td>
+                            <td>H2</td>
+                            <td>2025-01-01</td>
+                            <td>System</td>
+                            <td><span class="add-button"><i class="fas fa-plus"></i></span></td>
+                          </tr>
+                          <tr>
+                            <td>4</td>
+                            <td>Propane</td>
+                            <td>1333-74-0</td>
+                            <td>H2</td>
+                            <td>2025-01-01</td>
+                            <td>System</td>
+                            <td><span class="add-button"><i class="fas fa-plus"></i></span></td>
+                          </tr>
+                          <tr>
+                            <td>5</td>
+                            <td>Isobutane</td>
+                            <td>1333-74-0</td>
+                            <td>H2</td>
+                            <td>2025-01-01</td>
+                            <td>System</td>
+                            <td><span class="add-button"><i class="fas fa-plus"></i></span></td>
+                          </tr>
+                          <tr>
+                            <td>6</td>
+                            <td>Butane</td>
+                            <td>1333-74-0</td>
+                            <td>H2</td>
+                            <td>2025-01-01</td>
+                            <td>System</td>
+                            <td><span class="add-button"><i class="fas fa-plus"></i></span></td>
+                          </tr>
+                          <tr>
+                            <td>7</td>
+                            <td>Isopentane</td>
+                            <td>1333-74-0</td>
+                            <td>H2</td>
+                            <td>2025-01-01</td>
+                            <td>System</td>
+                            <td><span class="add-button"><i class="fas fa-plus"></i></span></td>
+                          </tr>
+                          <tr>
+                            <td>8</td>
+                            <td>Isopentane</td>
+                            <td>1333-74-0</td>
+                            <td>H2</td>
+                            <td>2025-01-01</td>
+                            <td>System</td>
+                            <td><span class="add-button"><i class="fas fa-plus"></i></span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="row mt-4 search-bar-wrapper">
+                    <div class="col-xxl-8 col-xl-12">
+                      <div class="search-bar">
+                        <form action="">
+                          <input type="search" placeholder="Search and add every project component">
+                          <span>
+                            <i class="fas fa-search"></i>
+                          </span>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-6">
+                  <div class="selected-components">
+                    <h4>Selected Components</h4>
+                    <div class="selected-components-table">
+                      <div class="table-responsive">
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td>Hydrogen</td>
+                              <td class="cross-icon"><i class="fas fa-times"></i></td>
+                              <td><img src="assets/images/drag-icon.png" alt=""></td>
+                            </tr>
+                            <tr>
+                              <td>2</td>
+                              <td>Methane</td>
+                              <td class="cross-icon"><i class="fas fa-times"></i></td>
+                              <td><img src="assets/images/drag-icon.png" alt=""></td>
+                            </tr>
+                            <tr>
+                              <td>3</td>
+                              <td>Hydrogen sulfide</td>
+                              <td class="cross-icon"><i class="fas fa-times"></i></td>
+                              <td><img src="assets/images/drag-icon.png" alt=""></td>
+                            </tr>
+                            <tr>
+                              <td>4</td>
+                              <td>Oxygen</td>
+                              <td class="cross-icon"><i class="fas fa-times"></i></td>
+                              <td><img src="assets/images/drag-icon.png" alt=""></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="row mt-4">
+                        <div class="col-xxl-12">
+                          <div class="button-wrapper">
+                            <button>Load from library <img src="assets/images/storage-icon.png" alt=""></button>
+                            <button>Clear All <i class="fas fa-times"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-6">
+                  <div class="gas-characteristics">
+                    <h4>Gas Characteristics</h4>
+                    <div class="gas-characteristics-table">
+                      <div class="gas-table">
+                        <span>Explosive <input type="checkbox"></span>
+                        <span>Inflammable <input type="checkbox"></span>
+                        <span>Toxic <input type="checkbox"></span>
+                      </div>
+                      <div class="gas-table">
+                        <span>Corrosive <input type="checkbox"></span>
+                        <span>Sour <input type="checkbox"></span>
+                        <span>Oxidizing <input type="checkbox"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="catious">
+                    <ul>
+                      <li>The entered gas mixture is flagged as explosive since Hydrogen was added.</li>
+                      <li>The entered gas mixture is flagged as inflammable since Methane was added.</li>
+                      <li>The entered gas mixture may be subject to sulfide stress cracking due to H2S component,
+                        consider NACE MR0175 compliant material for all wetted parts.</li>
+                      <li>The entered gas mixture is an oxygen enriched environment since the oxygen content exceeds 30
+                        mole %. Consider internal procedure XXXX for requirements in oxygen enriched environments.</li>
+                      <li>Project review by technical authority is required prior to release.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section class="inlet-conditions-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="inlet-conditions-section-wrapper">
+            <h4>Inlet conditions at battery limit <span>A</span></h4>
+            <div class="inlet-conditions">
+              <!-- project properties table -->
+              <div class="project-properties-table">
+                <div class="table-responsive">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Project properties</th>
+                        <th>UoM</th>
+                        <th>Case 1</th>
+                        <th>Case 2</th>
+                        <th>Case 3</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td></td>
+                        <td>Description</td>
+                        <td></td>
+                        <td>Max Number</td>
+                        <td>Normal</td>
+                        <td>Startup</td>
+                      </tr>
+                      <tr>
+                        <td>P<sub>a</sub></td>
+                        <td>Ambient pressure</td>
+                        <td><select name="" id="">
+                            <option value="mbara">mbara</option>
+                            <option value="mbara">mbara</option>
+                            <option value="mbara">mbara</option>
+                          </select></td>
+                        <td>1013</td>
+                        <td>1011</td>
+                        <td>1013</td>
+                      </tr>
+                      <tr>
+                        <td>T<sub>a</sub></td>
+                        <td>Ambient temperature</td>
+                        <td><select name="" id="">
+                            <option value="mbara">°C</option>
+                            <option value="mbara">°F</option>
+                          </select></td>
+                        <td><input type="text" placeholder="Enter Value"></td>
+                        <td><input type="text" placeholder="Enter Value"></td>
+                        <td><input type="text" placeholder="Enter Value"></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>Guarantee point</td>
+                        <td></td>
+                        <td><input type="radio"></td>
+                        <td><input type="radio"></td>
+                        <td><input type="radio"></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>Suppress</td>
+                        <td></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                      </tr>
+                      <tr>
+                        <td>P<sub>1</sub></td>
+                        <td>Pressure</td>
+                        <td><select name="" id="">
+                            <option value="barg">barg</option>
+                            <option value="barg">barg</option>
+                            <option value="barg">barg</option>
+                          </select></td>
+                        <td>0</td>
+                        <td>0,1</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>T<sub>1</sub></td>
+                        <td>Temperature</td>
+                        <td><select name="" id="">
+                            <option value="mbara">°C</option>
+                            <option value="mbara">°F</option>
+                          </select></td>
+                        <td>45</td>
+                        <td>7</td>
+                        <td>25</td>
+                      </tr>
+                      <tr>
+                        <td>ṁ</td>
+                        <td><select name="" id="">
+                            <option value="Mass flow">Mass flow</option>
+                            <option value="Mass flow">Mass flow</option>
+                            <option value="Mass flow">Mass flow</option>
+                          </select></td>
+                        <td><select name="" id="">
+                            <option value="mbara">kg/h</option>
+                            <option value="mbara">kg/h</option>
+                          </select></td>
+                        <td>4888</td>
+                        <td>3560</td>
+                        <td>5000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- gas composition table -->
+              <div class="gas-composition-table mt-5">
+                <div class="table-responsive">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Gas composition</th>
+                        <th><select name="" id="">
+                            <option value="mole %">mole %</option>
+                            <option value="mole %">mole %</option>
+                            <option value="mole %">mole %</option>
+                            <option value="mole %">mole %</option>
+                          </select></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Hydrogen</td>
+                        <td>mol %</td>
+                        <td>72</td>
+                        <td>90</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Methane</td>
+                        <td>mol %</td>
+                        <td>10</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Hydrogen sulfide</td>
+                        <td>mol %</td>
+                        <td>4,666</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>Oxygen</td>
+                        <td>mol %</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>Nitrogen</td>
+                        <td>mol %</td>
+                        <td><input type="text" placeholder="Enter Value"></td>
+                        <td>10</td>
+                        <td>100</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>Total</td>
+                        <td>mol %</td>
+                        <td>92,666</td>
+                        <td>100</td>
+                        <td>100</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="gas-composition-buttons mt-4">
+                  <div class="row">
+                    <div class="col-xl-6 col-md-12">
+                      <div class="gas-buttons-left d-flex">
+                        <button>Assume composition as 100% <i class="fas fa-plus"></i></button>
+                        <button>Flash <img src="assets/images/flash.png" alt=""></button>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-6 col-md-12">
+                      <div class="gas-buttons-right">
+                        <button>Add a new operating case <i class="fas fa-plus"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- calculated properties -->
+              <div class="calculated-properties-table mt-5">
+                <div class="table-responsive">
+                  <h4>Calculated Properties</h4>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>M</td>
+                        <td>Molar mass</td>
+                        <td>
+                          <select name="" id="">
+                            <option value="Am3/h">kg/mol</option>
+                            <option value="kg/mol">kg/mol</option>
+                            <option value="kg/mol">kg/mol</option>
+                          </select>
+                        </td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>Q<sub>1</sub></td>
+                        <td>Volumetric flow</td>
+                        <td>
+                          <select name="" id="">
+                            <option value="Am3/h">Am3/h</option>
+                            <option value="Am3/h">Am3/h</option>
+                            <option value="Am3/h">Am3/h</option>
+                          </select>
+                        </td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>Q<sub>N</sub></td>
+                        <td>Standard volumetric flow</td>
+                        <td>
+                          <select name="" id="">
+                            <option value="Nm3/h, DIN 1343">Nm3/h, DIN 1343</option>
+                            <option value="Nm3/h, DIN 1343">Nm3/h, DIN 1343</option>
+                            <option value="Nm3/h, DIN 1343">Nm3/h, DIN 1343</option>
+                          </select>
+                        </td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>y<sub>i</sub></td>
+                        <td>Vapour mole fraction</td>
+                        <td></td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>φ</td>
+                        <td>Relative humidity</td>
+                        <td>%</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>C<sub>p</sub></td>
+                        <td>Specific heat capacity</td>
+                        <td>
+                          <select name="" id="">
+                            <option value="J/(kg·K)">J/(kg·K)</option>
+                            <option value="J/(kg·K)">J/(kg·K)</option>
+                            <option value="J/(kg·K)">J/(kg·K)</option>
+                          </select>
+                        </td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>C<sub>v</sub></td>
+                        <td>Specific heat capacity</td>
+                        <td><select name="" id="">
+                            <option value="J/(kg·K)">J/(kg·K)</option>
+                            <option value="J/(kg·K)">J/(kg·K)</option>
+                            <option value="J/(kg·K)">J/(kg·K)</option>
+                          </select></td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>κ</td>
+                        <td>Specific heat ratio</td>
+                        <td></td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>R</td>
+                        <td>Specific gas constant</td>
+                        <td><select name="" id="">
+                            <option value="J/(kg·K)">J/(kg·K)</option>
+                            <option value="J/(kg·K)">J/(kg·K)</option>
+                            <option value="J/(kg·K)">J/(kg·K)</option>
+                          </select></td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>SG</td>
+                        <td>Specific gravity</td>
+                        <td></td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>ρ</td>
+                        <td>Density</td>
+                        <td><select name="" id="">
+                            <option value="kg/m3">kg/m3</option>
+                            <option value="kg/m3">kg/m3</option>
+                            <option value="kg/m3">kg/m3</option>
+                          </select></td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>Z</td>
+                        <td>Compressibility factor</td>
+                        <td><select name="" id="">
+                            <option value="kg/m3">kg/m3</option>
+                            <option value="kg/m3">kg/m3</option>
+                            <option value="kg/m3">kg/m3</option>
+                          </select></td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>c</td>
+                        <td>Speed of sound</td>
+                        <td><select name="" id="">
+                            <option value="m/s">m/s</option>
+                            <option value="m/s">m/s</option>
+                            <option value="m/s">m/s</option>
+                          </select></td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                      <tr>
+                        <td>Td</td>
+                        <td>Dew point</td>
+                        <td><select name="" id="">
+                            <option value="mbara">°C</option>
+                            <option value="mbara">°F</option>
+                          </select></td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                        <td>To be calculated</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="calculated-properties-buttons mt-4">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="calculated-table-buttons-left d-flex">
+                        <button class="inline-btn">Export as PDF datasheet</button>
+                        <button class="inline-btn">Export as EXCEL datasheet</button>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="calculated-table-buttons-right d-flex">
+                        <button><i class="fas fa-times"></i></button>
+                        <button><i class="fas fa-times"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- scripts -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
