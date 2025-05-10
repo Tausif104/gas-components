@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const globalDecimalValue = document.getElementById('globalDecimalValue')
   const globalDecreaseBtn = document.getElementById('globalDecreaseDecimal')
   const globalIncreaseBtn = document.getElementById('globalIncreaseDecimal')
-  const decimalValues = document.querySelectorAll('.decimal-value .value')
 
   // Function to format number with specified decimals
   function formatNumber(number, decimals) {
@@ -37,7 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Function to update all values with specified decimals
   function updateAllDecimals(decimals) {
-    decimalValues.forEach((value) => {
+    document.querySelectorAll('.decimal-value .value').forEach((value) => {
+      value.setAttribute('data-decimals', decimals)
       const currentValue = parseFloat(value.textContent)
       value.textContent = formatNumber(currentValue, decimals)
     })
@@ -354,8 +354,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const newCell = document.createElement('td')
         if (row.querySelector('.decimal-value')) {
           newCell.innerHTML = `
-          <div class="d-flex align-items-center justify-content-between">
-            <span class="value">0.00</span>
+          <div class="d-flex align-items-center justify-content-between decimal-value">
+            <span class="value" data-decimals="${globalDecimals}">${formatNumber(
+            0,
+            globalDecimals
+          )}</span>
             <div class="decimal-controls">
               <button class="decrease-decimal"><i class="fas fa-minus"></i></button>
               <button class="increase-decimal"><i class="fas fa-plus"></i></button>
@@ -367,9 +370,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         row.appendChild(newCell)
       })
-
-      // Initialize decimal controls for the new column
-      initializeDecimalControls()
     })
 
   // Function to update case numbers in headers
@@ -389,32 +389,33 @@ document.addEventListener('DOMContentLoaded', function () {
     })
   }
 
-  // Function to initialize decimal controls
-  function initializeDecimalControls() {
-    document.querySelectorAll('.decimal-value').forEach((cell) => {
-      const value = cell.querySelector('.value')
-      const decreaseBtn = cell.querySelector('.decrease-decimal')
-      const increaseBtn = cell.querySelector('.increase-decimal')
-
-      let currentDecimals = 2 // Default to 2 decimals
-
-      decreaseBtn.addEventListener('click', function () {
-        if (currentDecimals > 0) {
+  // Add event delegation for decimal controls in Calculated Properties table
+  document
+    .querySelector('.calculated-properties-table')
+    .addEventListener('click', function (event) {
+      const decreaseBtn = event.target.closest('.decrease-decimal')
+      const increaseBtn = event.target.closest('.increase-decimal')
+      if (decreaseBtn || increaseBtn) {
+        const valueSpan = event.target
+          .closest('.decimal-value')
+          ?.querySelector('.value')
+        if (!valueSpan) return
+        // Use a data attribute to store current decimals per cell
+        let currentDecimals = parseInt(valueSpan.getAttribute('data-decimals'))
+        if (isNaN(currentDecimals)) {
+          currentDecimals = globalDecimals
+        }
+        if (decreaseBtn && currentDecimals > 0) {
           currentDecimals--
-          const currentValue = parseFloat(value.textContent)
-          value.textContent = formatNumber(currentValue, currentDecimals)
         }
-      })
-
-      increaseBtn.addEventListener('click', function () {
-        if (currentDecimals < 4) {
+        if (increaseBtn && currentDecimals < 4) {
           currentDecimals++
-          const currentValue = parseFloat(value.textContent)
-          value.textContent = formatNumber(currentValue, currentDecimals)
         }
-      })
+        valueSpan.setAttribute('data-decimals', currentDecimals)
+        const currentValue = parseFloat(valueSpan.textContent)
+        valueSpan.textContent = formatNumber(currentValue, currentDecimals)
+      }
     })
-  }
 
   // Add click handler for deleting columns
   document.addEventListener('click', function (event) {
