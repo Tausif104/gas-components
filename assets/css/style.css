@@ -36,7 +36,6 @@ h4 {
 }
 
 .select-gas-components thead th:first-child {
-  border-bottom: 1px solid #494949;
   color: #333 !important;
 }
 
@@ -493,4 +492,8 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type='number'] {
   -moz-appearance: textfield;
+}
+
+select {
+  outline: none;
 }

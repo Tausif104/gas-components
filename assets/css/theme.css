@@ -11,6 +11,8 @@
   --text-color: #ffffff;
   --select-bg: #2d2d2d;
   --select-border: #404040;
+  --bg-transparent: transparent;
+  --theme-color: #22c1a9;
 }
 
 /* Apply theme variables - only for dark mode */
@@ -27,7 +29,7 @@
 [data-theme='dark'] .selected-components,
 [data-theme='dark'] .gas-characteristics,
 [data-theme='dark'] .inlet-conditions-section-wrapper {
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-transparent);
 }
 
 /* Dark mode text and select styles */
@@ -36,9 +38,9 @@
 }
 
 [data-theme='dark'] select {
-  background-color: var(--select-bg) !important;
+  background-color: var(--bg-transparent) !important;
   border-color: var(--select-border) !important;
-  color: var(--text-color) !important;
+  color: var(--theme-color) !important;
 }
 
 [data-theme='dark'] select option {
@@ -121,4 +123,17 @@ button.theme-toggle i {
   border: none;
   padding: 0;
   width: auto;
+}
+
+.select-gas-components table th {
+  background-color: var(--bg-primary);
+}
+
+input[type='search'] {
+  background: var(--bg-transparent);
+}
+
+td input[type='text'],
+td input[type='number'] {
+  background-color: var(--bg-transparent);
 }
