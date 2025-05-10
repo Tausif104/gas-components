@@ -1,47 +1,30 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const themeToggles = document.querySelectorAll('.theme-toggle')
+document.addEventListener('DOMContentLoaded', function () {
+  const themeSelect = document.querySelector('.theme-select')
+  const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)')
 
   // Function to set theme
-  const setTheme = (theme) => {
+  function setTheme(theme) {
     if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-        .matches
-        ? 'dark'
-        : 'light'
-      document.documentElement.setAttribute('data-theme', systemTheme)
-    } else {
-      document.documentElement.setAttribute('data-theme', theme)
+      theme = prefersDarkScheme.matches ? 'dark' : 'light'
     }
-
-    // Update active state
-    themeToggles.forEach((toggle) => {
-      toggle.classList.remove('active')
-      if (toggle.getAttribute('data-theme') === theme) {
-        toggle.classList.add('active')
-      }
-    })
-
+    document.documentElement.setAttribute('data-theme', theme)
     localStorage.setItem('theme', theme)
+    themeSelect.value = theme
   }
 
-  // Check for saved theme preference
+  // Initialize theme
   const savedTheme = localStorage.getItem('theme') || 'system'
   setTheme(savedTheme)
 
-  // Handle theme selection
-  themeToggles.forEach((toggle) => {
-    toggle.addEventListener('click', () => {
-      const theme = toggle.getAttribute('data-theme')
-      setTheme(theme)
-    })
+  // Handle theme selection change
+  themeSelect.addEventListener('change', function () {
+    setTheme(this.value)
   })
 
   // Listen for system theme changes
-  window
-    .matchMedia('(prefers-color-scheme: dark)')
-    .addEventListener('change', (e) => {
-      if (localStorage.getItem('theme') === 'system') {
-        setTheme('system')
-      }
-    })
+  prefersDarkScheme.addEventListener('change', (e) => {
+    if (localStorage.getItem('theme') === 'system') {
+      setTheme('system')
+    }
+  })
 })

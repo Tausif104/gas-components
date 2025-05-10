@@ -2,6 +2,9 @@
   /* Light theme (default) - using your original colors */
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
 }
 
 [data-theme='dark'] {
@@ -13,6 +16,9 @@
   --select-border: #404040;
   --bg-transparent: transparent;
   --theme-color: #22c1a9;
+  --scrollbar-track: #2d2d2d;
+  --scrollbar-thumb: #666;
+  --scrollbar-thumb-hover: #888;
 }
 
 /* Apply theme variables - only for dark mode */
@@ -136,4 +142,29 @@ input[type='search'] {
 td input[type='text'],
 td input[type='number'] {
   background-color: var(--bg-transparent);
+}
+
+.decimal-controls-wrapper,
+select.form-select {
+  border-color: var(--select-border);
+}
+
+.navbar-bg {
+  background-color: var(--bg-primary);
+}
+
+:root[data-theme='light'] {
+  --bg-color: #ffffff;
+  --text-color: #212529;
+  --border-color: #dee2e6;
+  --primary-color: #0d6efd;
+  --navbar-toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(33, 37, 41, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+:root[data-theme='dark'] {
+  --bg-color: #212529;
+  --text-color: #f8f9fa;
+  --border-color: #495057;
+  --primary-color: #0d6efd;
+  --navbar-toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(248, 249, 250, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
