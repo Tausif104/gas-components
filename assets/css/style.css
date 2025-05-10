@@ -276,7 +276,8 @@ select {
   font-weight: 500;
 }
 
-td input[type='text'] {
+td input[type='text'],
+td input[type='number'] {
   border: none;
   text-align: center;
   opacity: 0.7;
@@ -364,7 +365,8 @@ button {
   justify-content: center;
 }
 
-td input[type='text']:focus {
+td input[type='text']:focus,
+td input[type='number']:focus {
   outline: none;
 }
 
@@ -479,4 +481,16 @@ input[type='radio']:disabled:checked,
 input[type='checkbox']:disabled:checked {
   background-color: #ccc;
   border-color: #ccc;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
 }
