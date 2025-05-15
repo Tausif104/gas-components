@@ -211,14 +211,13 @@ document.addEventListener('DOMContentLoaded', function () {
           gasCompositionTable.appendChild(newGasRow)
         }
 
-        // Add to selected components table
+        // Add to selected components table (without drag icon)
         const newSelectedRow = document.createElement('tr')
         newSelectedRow.innerHTML = `
-        <td>${gasId}</td>
-        <td>${gasName}</td>
-        <td class="cross-icon"><i class="fas fa-times"></i></td>
-        <td><img src="assets/images/drag-icon.png" alt=""></td>
-      `
+          <td>${gasId}</td>
+          <td>${gasName}</td>
+          <td class="cross-icon"><i class="fas fa-times"></i></td>
+        `
         selectedComponentsTable.appendChild(newSelectedRow)
 
         // Change to check icon
@@ -232,8 +231,24 @@ document.addEventListener('DOMContentLoaded', function () {
         row.style.backgroundColor = ''
       }, 200)
 
-      // Re-initialize drag and drop after adding new components
-      setTimeout(initializeDragAndDrop, 100)
+      // Re-initialize drag and drop only for gas composition table
+      setTimeout(() => {
+        const gasCompositionTable = document.querySelector(
+          '.gas-composition-table table:first-of-type tbody'
+        )
+        if (gasCompositionTable) {
+          // Only initialize drag and drop for gas composition table rows
+          const rows = gasCompositionTable.querySelectorAll(
+            'tr:not(.gas-composition-total-row)'
+          )
+          rows.forEach((row) => {
+            if (!row.classList.contains('gas-composition-total-row')) {
+              row.setAttribute('draggable', 'true')
+            }
+          })
+          initializeDragAndDrop()
+        }
+      }, 100)
     })
 
   // Add click handler for removing components from selected components table
@@ -260,6 +275,15 @@ document.addEventListener('DOMContentLoaded', function () {
         )
         if (existingInGasComposition) {
           existingInGasComposition.remove()
+          // Re-initialize drag and drop only for gas composition table
+          setTimeout(() => {
+            const gasCompositionTable = document.querySelector(
+              '.gas-composition-table table:first-of-type tbody'
+            )
+            if (gasCompositionTable) {
+              initializeDragAndDrop()
+            }
+          }, 100)
         }
 
         // Change back to plus icon in the select gas components table
