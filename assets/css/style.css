@@ -637,3 +637,82 @@ th.case-column {
 .nav-link:hover {
   color: #22c1a9 !important;
 }
+
+.add-button {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #8f8f8f;
+  border-radius: 4px;
+  margin-left: 10px;
+  transition: all 0.2s ease;
+}
+
+.add-button i {
+  color: #22c1a9;
+  border: none;
+  width: auto;
+  padding: 0;
+}
+
+.add-button:hover {
+  border-color: #22c1a9;
+}
+
+.add-button.checked i {
+  color: #22c1a9;
+}
+
+/* Drag and drop styles */
+.gas-composition-table tbody tr:not(.gas-composition-total-row) {
+  cursor: grab;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.gas-composition-table tbody tr:not(.gas-composition-total-row):active {
+  cursor: grabbing;
+}
+
+.gas-composition-table tbody tr.dragging {
+  opacity: 0.5;
+  background-color: #f8f9fa;
+  cursor: grabbing;
+}
+
+.gas-composition-table tbody tr:not(.gas-composition-total-row):hover {
+  background-color: #f8f9fa;
+}
+
+.gas-composition-table tbody tr:not(.gas-composition-total-row) td {
+  pointer-events: none;
+}
+
+.gas-composition-table tbody tr:not(.gas-composition-total-row) td:first-child {
+  pointer-events: auto;
+}
+
+.gas-composition-table
+  tbody
+  tr:not(.gas-composition-total-row)
+  td:first-child
+  img {
+  cursor: grab;
+}
+
+.gas-composition-table
+  tbody
+  tr:not(.gas-composition-total-row)
+  td:first-child
+  img:active {
+  cursor: grabbing;
+}
+
+h4.heading {
+  font-size: 28px;
+  margin-bottom: 12px !important;
+  display: inline-block;
+}

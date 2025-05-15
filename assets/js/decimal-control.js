@@ -22,138 +22,257 @@ document.addEventListener('DOMContentLoaded', function () {
     delay: 3000,
   })
 
-  // Global decimal control
-  const globalDecimalValue = document.getElementById('globalDecimalValue')
-  const globalDecreaseBtn = document.getElementById('globalDecreaseDecimal')
-  const globalIncreaseBtn = document.getElementById('globalIncreaseDecimal')
+  // Store original values for each cell
+  const originalValues = new Map()
 
-  // Function to format number with specified decimals
-  function formatNumber(number, decimals) {
-    // Ensure number doesn't exceed 100
-    const cappedNumber = Math.min(Number(number), 100)
-    return cappedNumber.toFixed(decimals)
+  // Initialize decimal controls for a specific cell
+  function initializeCellDecimalControls(cell) {
+    const originalValue = parseFloat(cell.textContent)
+    if (!isNaN(originalValue)) {
+      originalValues.set(cell, originalValue)
+      updateDisplay(cell, 2) // Start with 2 decimals
+    }
   }
 
-  // Function to update all values with specified decimals
-  function updateAllDecimals(decimals) {
-    document.querySelectorAll('.decimal-value .value').forEach((value) => {
-      value.setAttribute('data-decimals', decimals)
-      const currentValue = parseFloat(value.textContent)
-      value.textContent = formatNumber(currentValue, decimals)
+  // Initialize decimal controls
+  function initializeDecimalControls() {
+    // Global decimal control
+    const globalDecimalValue = document.getElementById('globalDecimalValue')
+    const globalDecreaseDecimal = document.getElementById(
+      'globalDecreaseDecimal'
+    )
+    const globalIncreaseDecimal = document.getElementById(
+      'globalIncreaseDecimal'
+    )
+
+    // Store original values and set initial display for all existing cells
+    document.querySelectorAll('.decimal-value .value').forEach((cell) => {
+      initializeCellDecimalControls(cell)
     })
-  }
 
-  // Global decimal control handlers
-  let globalDecimals = 2 // Default to 2 decimals
-
-  globalDecreaseBtn.addEventListener('click', function () {
-    if (globalDecimals > 0) {
-      globalDecimals--
-      globalDecimalValue.textContent = globalDecimals
-      updateAllDecimals(globalDecimals)
-    }
-  })
-
-  globalIncreaseBtn.addEventListener('click', function () {
-    if (globalDecimals < 4) {
-      globalDecimals++
-      globalDecimalValue.textContent = globalDecimals
-      updateAllDecimals(globalDecimals)
-    }
-  })
-
-  // Individual decimal controls
-  document.querySelectorAll('.decimal-value').forEach((cell) => {
-    const value = cell.querySelector('.value')
-    const decreaseBtn = cell.querySelector('.decrease-decimal')
-    const increaseBtn = cell.querySelector('.increase-decimal')
-
-    let currentDecimals = 2 // Default to 2 decimals
-
-    decreaseBtn.addEventListener('click', function () {
+    // Global decimal control handlers
+    globalDecreaseDecimal?.addEventListener('click', () => {
+      const currentDecimals = parseInt(globalDecimalValue.textContent)
       if (currentDecimals > 0) {
-        currentDecimals--
-        const currentValue = parseFloat(value.textContent)
-        value.textContent = formatNumber(currentValue, currentDecimals)
+        globalDecimalValue.textContent = currentDecimals - 1
+        updateAllDisplays(currentDecimals - 1)
       }
     })
 
-    increaseBtn.addEventListener('click', function () {
-      if (currentDecimals < 4) {
-        currentDecimals++
-        const currentValue = parseFloat(value.textContent)
-        value.textContent = formatNumber(currentValue, currentDecimals)
+    globalIncreaseDecimal?.addEventListener('click', () => {
+      const currentDecimals = parseInt(globalDecimalValue.textContent)
+      if (currentDecimals < 6) {
+        // Limit to 6 decimal places
+        globalDecimalValue.textContent = currentDecimals + 1
+        updateAllDisplays(currentDecimals + 1)
       }
     })
+  }
+
+  // Get current number of decimals for a cell
+  function getCurrentDecimals(cell) {
+    const displayValue = cell.textContent
+    const decimalPart = displayValue.split('.')[1]
+    return decimalPart ? decimalPart.length : 0
+  }
+
+  // Update display format for a single cell
+  function updateDisplay(cell, decimals) {
+    const originalValue = originalValues.get(cell)
+    if (originalValue !== undefined) {
+      cell.textContent = originalValue.toFixed(decimals)
+    }
+  }
+
+  // Update display format for all cells
+  function updateAllDisplays(decimals) {
+    document.querySelectorAll('.decimal-value .value').forEach((cell) => {
+      updateDisplay(cell, decimals)
+    })
+  }
+
+  // Initialize drag and drop immediately
+  initializeDragAndDrop()
+
+  // Initialize decimal controls
+  initializeDecimalControls()
+
+  // Event delegation for decimal controls
+  document.addEventListener('click', function (event) {
+    const decreaseBtn = event.target.closest('.decrease-decimal')
+    const increaseBtn = event.target.closest('.increase-decimal')
+
+    if (decreaseBtn || increaseBtn) {
+      const valueCell = event.target
+        .closest('.decimal-value')
+        ?.querySelector('.value')
+      if (!valueCell) return
+
+      // Initialize the cell if it hasn't been initialized yet
+      if (!originalValues.has(valueCell)) {
+        initializeCellDecimalControls(valueCell)
+      }
+
+      const currentDecimals = getCurrentDecimals(valueCell)
+
+      if (decreaseBtn && currentDecimals > 0) {
+        updateDisplay(valueCell, currentDecimals - 1)
+      } else if (increaseBtn && currentDecimals < 6) {
+        updateDisplay(valueCell, currentDecimals + 1)
+      }
+    }
   })
 
-  // Add click handler for the plus button in select gas components
+  // Add click handler for the select gas components table
   document
     .querySelector('.select-gas-components')
     .addEventListener('click', function (event) {
-      if (event.target.closest('.add-button')) {
-        const button = event.target.closest('.add-button')
-        const sourceRow = button.closest('tr')
-        const gasCompositionTable = document.querySelector(
-          '.gas-composition-table table:first-of-type tbody'
-        )
+      // Get the clicked row
+      const row = event.target.closest('tr')
+      if (!row) return
 
-        // Get all rows
-        const rows = Array.from(gasCompositionTable.rows)
+      // Skip if clicking the header row
+      if (row.parentElement.tagName === 'THEAD') return
 
-        // Find the Total row
-        const totalRow = rows.find((row) =>
+      // Get the gas component details from the row
+      const gasId = row.cells[0].textContent
+      const gasName = row.cells[1].textContent
+      const plusButton = row.querySelector('.add-button')
+
+      // Get both tables
+      const gasCompositionTable = document.querySelector(
+        '.gas-composition-table table:first-of-type tbody'
+      )
+      const selectedComponentsTable = document.querySelector(
+        '.selected-components-table table tbody'
+      )
+
+      // Check if this gas component already exists in either table
+      const existingInGasComposition = Array.from(
+        gasCompositionTable.rows
+      ).find(
+        (row) =>
+          row.cells[1]?.textContent === gasName &&
+          !row.classList.contains('gas-composition-total-row')
+      )
+
+      const existingInSelected = Array.from(selectedComponentsTable.rows).find(
+        (row) => row.cells[1]?.textContent === gasName
+      )
+
+      // If component exists in either table, remove it
+      if (existingInGasComposition || existingInSelected) {
+        if (existingInGasComposition) {
+          existingInGasComposition.remove()
+        }
+        if (existingInSelected) {
+          existingInSelected.remove()
+        }
+        // Change back to plus icon
+        plusButton.innerHTML = '<i class="fas fa-plus"></i>'
+        plusButton.classList.remove('checked')
+      } else {
+        // Add to gas composition table
+        const gasRows = Array.from(gasCompositionTable.rows)
+        const totalRow = gasRows.find((row) =>
           row.classList.contains('gas-composition-total-row')
         )
 
-        // Get the gas component name
-        const gasName = sourceRow.cells[1].textContent
+        // Find the first data row for structure
+        const firstDataRow = gasRows.find(
+          (row) =>
+            !row.classList.contains('gas-composition-total-row') &&
+            row.cells.length > 3
+        )
 
-        // Check if this gas component already exists in the table
-        const existingGas = rows.find(
+        // Build the new row for gas composition
+        let newGasRowHtml = ''
+        if (firstDataRow) {
+          newGasRowHtml += `<td><img src="assets/images/drag-icon.png" alt="" draggable="false"></td>`
+          newGasRowHtml += `<td>${gasName}</td>`
+          newGasRowHtml += `<td>mol %</td>`
+          for (let i = 3; i < firstDataRow.cells.length; i++) {
+            const cell = firstDataRow.cells[i]
+            if (cell.querySelector('input')) {
+              newGasRowHtml +=
+                '<td><input type="number" placeholder="Enter Value"></td>'
+            } else {
+              newGasRowHtml += '<td></td>'
+            }
+          }
+        }
+
+        // Create and insert new row in gas composition
+        const newGasRow = document.createElement('tr')
+        newGasRow.innerHTML = newGasRowHtml
+        if (totalRow) {
+          totalRow.parentNode.insertBefore(newGasRow, totalRow)
+        } else {
+          gasCompositionTable.appendChild(newGasRow)
+        }
+
+        // Add to selected components table
+        const newSelectedRow = document.createElement('tr')
+        newSelectedRow.innerHTML = `
+        <td>${gasId}</td>
+        <td>${gasName}</td>
+        <td class="cross-icon"><i class="fas fa-times"></i></td>
+        <td><img src="assets/images/drag-icon.png" alt=""></td>
+      `
+        selectedComponentsTable.appendChild(newSelectedRow)
+
+        // Change to check icon
+        plusButton.innerHTML = '<i class="fas fa-check"></i>'
+        plusButton.classList.add('checked')
+      }
+
+      // Visual feedback
+      row.style.backgroundColor = 'rgba(34, 193, 169, 0.1)'
+      setTimeout(() => {
+        row.style.backgroundColor = ''
+      }, 200)
+
+      // Re-initialize drag and drop after adding new components
+      setTimeout(initializeDragAndDrop, 100)
+    })
+
+  // Add click handler for removing components from selected components table
+  document
+    .querySelector('.selected-components-table')
+    .addEventListener('click', function (event) {
+      if (event.target.closest('.cross-icon')) {
+        const row = event.target.closest('tr')
+        const gasName = row.cells[1].textContent
+
+        // Remove from selected components table
+        row.remove()
+
+        // Also remove from gas composition table if it exists
+        const gasCompositionTable = document.querySelector(
+          '.gas-composition-table table:first-of-type tbody'
+        )
+        const existingInGasComposition = Array.from(
+          gasCompositionTable.rows
+        ).find(
           (row) =>
             row.cells[1]?.textContent === gasName &&
             !row.classList.contains('gas-composition-total-row')
         )
+        if (existingInGasComposition) {
+          existingInGasComposition.remove()
+        }
 
-        // Only add if the gas component doesn't already exist
-        if (!existingGas) {
-          // Find the first data row (not header, not total row)
-          const firstDataRow = rows.find(
-            (row) =>
-              !row.classList.contains('gas-composition-total-row') &&
-              row.cells.length > 3
-          )
-
-          // Build the new row by cloning the structure of the first data row
-          let newRowHtml = ''
-          if (firstDataRow) {
-            // First three columns: row number, gas name, unit
-            newRowHtml += `<td>${rows.length - 1}</td>`
-            newRowHtml += `<td>${gasName}</td>`
-            newRowHtml += `<td>mol %</td>`
-            // For each cell after the first three, clone structure
-            for (let i = 3; i < firstDataRow.cells.length; i++) {
-              const cell = firstDataRow.cells[i]
-              if (cell.querySelector('input')) {
-                newRowHtml +=
-                  '<td><input type="number" placeholder="Enter Value"></td>'
-              } else {
-                newRowHtml += '<td></td>'
-              }
-            }
-          }
-
-          // Create new row
-          const newRow = document.createElement('tr')
-          newRow.innerHTML = newRowHtml
-
-          // Insert before Total row
-          if (totalRow) {
-            totalRow.parentNode.insertBefore(newRow, totalRow)
-          } else {
-            gasCompositionTable.appendChild(newRow)
-          }
+        // Change back to plus icon in the select gas components table
+        const selectGasTable = document.querySelector(
+          '.select-gas-components table tbody'
+        )
+        const sourceRow = Array.from(selectGasTable.rows).find(
+          (row) => row.cells[1].textContent === gasName
+        )
+        if (sourceRow) {
+          const plusButton = sourceRow.querySelector('.add-button')
+          plusButton.innerHTML = '<i class="fas fa-plus"></i>'
+          plusButton.classList.remove('checked')
         }
       }
     })
@@ -370,6 +489,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         row.appendChild(newCell)
       })
+
+      // After adding new columns, initialize decimal controls for new cells
+      document.querySelectorAll('.decimal-value .value').forEach((cell) => {
+        if (!originalValues.has(cell)) {
+          initializeCellDecimalControls(cell)
+        }
+      })
     })
 
   // Function to update case numbers in headers
@@ -388,34 +514,6 @@ document.addEventListener('DOMContentLoaded', function () {
       header.textContent = `Case ${index + 1}`
     })
   }
-
-  // Add event delegation for decimal controls in Calculated Properties table
-  document
-    .querySelector('.calculated-properties-table')
-    .addEventListener('click', function (event) {
-      const decreaseBtn = event.target.closest('.decrease-decimal')
-      const increaseBtn = event.target.closest('.increase-decimal')
-      if (decreaseBtn || increaseBtn) {
-        const valueSpan = event.target
-          .closest('.decimal-value')
-          ?.querySelector('.value')
-        if (!valueSpan) return
-        // Use a data attribute to store current decimals per cell
-        let currentDecimals = parseInt(valueSpan.getAttribute('data-decimals'))
-        if (isNaN(currentDecimals)) {
-          currentDecimals = globalDecimals
-        }
-        if (decreaseBtn && currentDecimals > 0) {
-          currentDecimals--
-        }
-        if (increaseBtn && currentDecimals < 4) {
-          currentDecimals++
-        }
-        valueSpan.setAttribute('data-decimals', currentDecimals)
-        const currentValue = parseFloat(valueSpan.textContent)
-        valueSpan.textContent = formatNumber(currentValue, currentDecimals)
-      }
-    })
 
   // Add click handler for deleting columns
   document.addEventListener('click', function (event) {
@@ -488,4 +586,185 @@ document.addEventListener('DOMContentLoaded', function () {
       })
     }
   })
+
+  // Function to update row numbers
+  function updateRowNumbers() {
+    const gasCompositionTable = document.querySelector(
+      '.gas-composition-table table:first-of-type tbody'
+    )
+    if (!gasCompositionTable) return
+
+    const rows = gasCompositionTable.querySelectorAll(
+      'tr:not(.gas-composition-total-row)'
+    )
+    rows.forEach((row) => {
+      const firstCell = row.cells[0]
+      if (firstCell) {
+        // Always use the drag icon
+        firstCell.innerHTML = `<img src="assets/images/drag-icon.png" alt="" draggable="false">`
+      }
+    })
+  }
 })
+
+// Move initializeDragAndDrop outside of DOMContentLoaded
+function initializeDragAndDrop() {
+  const gasCompositionTable = document.querySelector(
+    '.gas-composition-table table:first-of-type tbody'
+  )
+  if (!gasCompositionTable) return
+
+  let draggedRow = null
+  let placeholder = null
+  let dragStartY = 0
+  const DRAG_THRESHOLD = 5
+
+  // Remove any existing drag and drop event listeners
+  gasCompositionTable
+    .querySelectorAll('tr:not(.gas-composition-total-row)')
+    .forEach((row) => {
+      const newRow = row.cloneNode(true)
+      row.parentNode.replaceChild(newRow, row)
+    })
+
+  // Make all rows draggable except the total row
+  gasCompositionTable
+    .querySelectorAll('tr:not(.gas-composition-total-row)')
+    .forEach((row) => {
+      // Set draggable attribute on the entire row
+      row.setAttribute('draggable', 'true')
+
+      // Mouse down event to track initial position
+      row.addEventListener('mousedown', (e) => {
+        // Don't initiate drag if clicking on interactive elements
+        if (
+          e.target.closest(
+            'input, button, select, .decimal-controls, .add-button'
+          )
+        ) {
+          row.setAttribute('draggable', 'false')
+          return
+        }
+
+        dragStartY = e.clientY
+        row.setAttribute('draggable', 'true')
+      })
+
+      // Mouse move event to check if we should start dragging
+      row.addEventListener('mousemove', (e) => {
+        if (!row.hasAttribute('draggable')) return
+
+        const deltaY = Math.abs(e.clientY - dragStartY)
+        if (deltaY > DRAG_THRESHOLD) {
+          row.draggable = true
+        }
+      })
+
+      // Mouse up event to reset draggable state
+      row.addEventListener('mouseup', () => {
+        row.setAttribute('draggable', 'true')
+      })
+
+      // Drag start
+      row.addEventListener('dragstart', (e) => {
+        // Don't start drag if clicking on interactive elements
+        if (
+          e.target.closest(
+            'input, button, select, .decimal-controls, .add-button'
+          )
+        ) {
+          e.preventDefault()
+          return
+        }
+
+        draggedRow = row
+        e.dataTransfer.effectAllowed = 'move'
+        e.dataTransfer.setData('text/plain', '') // Required for Firefox
+
+        // Create a placeholder
+        placeholder = document.createElement('tr')
+        placeholder.style.height = `${row.offsetHeight}px`
+        placeholder.style.backgroundColor = '#f8f9fa'
+        placeholder.style.border = '2px dashed #22c1a9'
+
+        // Add dragging class after a small delay
+        requestAnimationFrame(() => {
+          row.classList.add('dragging')
+        })
+      })
+
+      // Drag end
+      row.addEventListener('dragend', () => {
+        draggedRow = null
+        row.classList.remove('dragging')
+        if (placeholder && placeholder.parentNode) {
+          placeholder.parentNode.removeChild(placeholder)
+        }
+        placeholder = null
+        row.setAttribute('draggable', 'true')
+      })
+
+      // Drag over
+      row.addEventListener('dragover', (e) => {
+        e.preventDefault()
+        e.dataTransfer.dropEffect = 'move'
+
+        if (!draggedRow || row.classList.contains('gas-composition-total-row'))
+          return
+
+        const rect = row.getBoundingClientRect()
+        const midY = rect.top + rect.height / 2
+
+        if (placeholder) {
+          if (e.clientY < midY) {
+            row.parentNode.insertBefore(placeholder, row)
+          } else {
+            row.parentNode.insertBefore(placeholder, row.nextSibling)
+          }
+        }
+      })
+    })
+
+  // Drop handler for the table
+  gasCompositionTable.addEventListener('drop', (e) => {
+    e.preventDefault()
+    if (!draggedRow || !placeholder) return
+
+    // Insert the dragged row where the placeholder is
+    placeholder.parentNode.insertBefore(draggedRow, placeholder)
+
+    // Remove the placeholder
+    placeholder.parentNode.removeChild(placeholder)
+    placeholder = null
+
+    // Ensure total row stays at bottom
+    const totalRow = gasCompositionTable.querySelector(
+      '.gas-composition-total-row'
+    )
+    if (totalRow) {
+      gasCompositionTable.appendChild(totalRow)
+    }
+
+    // Update row numbers
+    updateRowNumbers()
+  })
+
+  // Prevent default drag behavior for the entire table
+  gasCompositionTable.addEventListener('dragenter', (e) => {
+    e.preventDefault()
+  })
+
+  gasCompositionTable.addEventListener('dragover', (e) => {
+    e.preventDefault()
+  })
+
+  // Add click event delegation for interactive elements
+  gasCompositionTable.addEventListener('click', (e) => {
+    const target = e.target
+    if (
+      target.closest('input, button, select, .decimal-controls, .add-button')
+    ) {
+      e.stopPropagation()
+    }
+  })
+}
