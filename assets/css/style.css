@@ -239,8 +239,10 @@ section.inlet-conditions-section > table {
   width: 1150px;
 }
 .inlet-conditions th,
-.inlet-conditions td {
-  padding: 7px 15px;
+.inlet-conditions td,
+.gas-composition-table th,
+.gas-composition-table td {
+  padding: 7px 7px 7px 7px;
   border: 1px solid #8f8f8f;
   width: 200px;
   text-align: center;
@@ -326,6 +328,8 @@ section.inlet-conditions-section {
 
 section.inlet-conditions-section th:nth-child(2) {
   text-align: left;
+  font-size: 18px;
+  width: 350px;
 }
 
 .gas-composition-table th:nth-child(3) {
@@ -538,7 +542,6 @@ select {
 .decimal-controls-wrapper {
   border: 1px solid #dee2e6;
   padding: 0 12px;
-  border-radius: 6px;
 }
 
 select.form-select {
@@ -719,4 +722,48 @@ h4.heading {
 
 .case-one button.delete-column-btn {
   display: none;
+}
+
+.calculated-header h4 {
+  font-size: 18px;
+  padding-left: 62px;
+}
+
+td input[type='text']:focus::placeholder,
+td input[type='number']:focus::placeholder {
+  opacity: 0.5;
+}
+
+button img {
+  max-width: 18px;
+}
+
+.gc-buttons-wrapper {
+  margin-left: 47px;
+}
+
+button.gas-composition-add-btn {
+  margin-left: 12.5%;
+}
+
+.decimal-value i {
+  font-size: 11px;
+}
+
+.decimal-controls {
+  gap: 5px;
+}
+
+.decimal-controls.decimal-controls-global i {
+  font-size: 11px;
+}
+
+.select-wrapper {
+  border: 1px solid #8f8f8f;
+  padding: 10px;
+  padding-right: 10px !important;
+}
+
+.decimal-controls-wrapper span {
+  color: #22c1a9;
 }

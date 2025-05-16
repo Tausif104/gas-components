@@ -503,10 +503,10 @@ document.addEventListener('DOMContentLoaded', function () {
           )
           newCell.innerHTML = `
             <div class="d-flex align-items-center justify-content-between decimal-value">
-              <span class="value">0.00</span>
+              <span class="value">97.33</span>
               <div class="decimal-controls">
-                <button class="decrease-decimal"><i class="fas fa-minus"></i></button>
-                <button class="increase-decimal"><i class="fas fa-plus"></i></button>
+                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
+                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
               </div>
             </div>
           `
@@ -684,6 +684,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize radio buttons when the page loads
   initializeGuaranteePointRadios()
+
+  // Update the global decimal controls HTML
+  const globalDecimalControls = document.querySelector(
+    '.decimal-controls-global'
+  )
+  if (globalDecimalControls) {
+    globalDecimalControls.innerHTML = `
+      <button class="decrease-decimal" id="globalDecreaseDecimal"><i class="fas fa-angle-left"></i></button>
+      <span id="globalDecimalValue">2</span>
+      <button class="increase-decimal" id="globalIncreaseDecimal"><i class="fas fa-angle-right"></i></button>
+    `
+  }
+
+  // Update all existing decimal controls in the table
+  document.querySelectorAll('.decimal-controls').forEach((controls) => {
+    if (!controls.classList.contains('decimal-controls-global')) {
+      controls.innerHTML = `
+        <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
+        <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
+      `
+    }
+  })
 })
 
 // Move initializeDragAndDrop outside of DOMContentLoaded
