@@ -767,3 +767,7 @@ button.gas-composition-add-btn {
 .decimal-controls-wrapper span {
   color: #22c1a9;
 }
+
+.selected-components-table > .table-responsive {
+  height: 261px;
+}
