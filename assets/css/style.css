@@ -716,3 +716,7 @@ h4.heading {
   margin-bottom: 12px !important;
   display: inline-block;
 }
+
+.case-one button.delete-column-btn {
+  display: none;
+}

@@ -1,2 +1,6 @@
 feedback.pdf
 feedback.txt
+.Ds_store
+*.DS_Store
+*.dSYM
+*.swp

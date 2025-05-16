@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '.project-properties-table table'
       )
       const gasCompositionTable = document.querySelector(
-        '.gas-composition-table table'
+        '.gas-composition-table table:first-of-type'
       )
       const calculatedPropertiesTable = document.querySelector(
         '.calculated-properties-table table'
@@ -453,7 +453,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (row.querySelector('input[type="number"]')) {
           newCell.innerHTML = '<input type="number" placeholder="Enter Value">'
         } else if (row.querySelector('input[type="radio"]')) {
-          newCell.innerHTML = '<input type="radio">'
+          // Add radio button with the same name for grouping
+          newCell.innerHTML = '<input type="radio" name="guarantee-point">'
         } else if (row.querySelector('input[type="checkbox"]')) {
           newCell.innerHTML = '<input type="checkbox">'
         } else if (row.querySelector('select')) {
@@ -488,7 +489,7 @@ document.addEventListener('DOMContentLoaded', function () {
         calculatedPropertiesTable.querySelector('thead tr')
       if (calculatedHeaderRow) {
         const newCalculatedHeader = document.createElement('th')
-        newCalculatedHeader.textContent = `Case ${newCaseNumber}` // Remove close button from header
+        newCalculatedHeader.textContent = `Case ${newCaseNumber}`
         calculatedHeaderRow.appendChild(newCalculatedHeader)
       }
 
@@ -496,20 +497,30 @@ document.addEventListener('DOMContentLoaded', function () {
       calculatedPropertiesTable.querySelectorAll('tbody tr').forEach((row) => {
         const newCell = document.createElement('td')
         if (row.querySelector('.decimal-value')) {
+          // Get the current decimal value from the global control
+          const globalDecimals = parseInt(
+            document.getElementById('globalDecimalValue').textContent
+          )
           newCell.innerHTML = `
-          <div class="d-flex align-items-center justify-content-between decimal-value">
-            <span class="value" data-decimals="${globalDecimals}">${formatNumber(
-            0,
-            globalDecimals
-          )}</span>
-            <div class="decimal-controls">
-              <button class="decrease-decimal"><i class="fas fa-minus"></i></button>
-              <button class="increase-decimal"><i class="fas fa-plus"></i></button>
+            <div class="d-flex align-items-center justify-content-between decimal-value">
+              <span class="value">0.00</span>
+              <div class="decimal-controls">
+                <button class="decrease-decimal"><i class="fas fa-minus"></i></button>
+                <button class="increase-decimal"><i class="fas fa-plus"></i></button>
+              </div>
             </div>
-          </div>
-        `
+          `
+          // Initialize the new decimal value cell
+          const valueSpan = newCell.querySelector('.value')
+          if (valueSpan) {
+            initializeCellDecimalControls(valueSpan)
+          }
+        } else if (row.querySelector('select')) {
+          // Copy the select element if it exists
+          newCell.innerHTML = row.querySelector('td').innerHTML
         } else {
-          newCell.innerHTML = row.querySelector('td').innerHTML // Copy existing content
+          // Copy existing content for other cells
+          newCell.innerHTML = row.querySelector('td').innerHTML
         }
         row.appendChild(newCell)
       })
@@ -520,6 +531,14 @@ document.addEventListener('DOMContentLoaded', function () {
           initializeCellDecimalControls(cell)
         }
       })
+
+      // Re-initialize drag and drop for the gas composition table
+      setTimeout(() => {
+        initializeDragAndDrop()
+      }, 100)
+
+      // Re-initialize radio button handling
+      initializeGuaranteePointRadios()
     })
 
   // Function to update case numbers in headers
@@ -629,6 +648,42 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     })
   }
+
+  // Add radio button handling for Guarantee point row
+  function initializeGuaranteePointRadios() {
+    const projectPropertiesTable = document.querySelector(
+      '.project-properties-table table'
+    )
+    if (!projectPropertiesTable) return
+
+    // Find the Guarantee point row
+    const guaranteeRow = Array.from(
+      projectPropertiesTable.querySelectorAll('tbody tr')
+    ).find((row) => row.cells[1]?.textContent === 'Guarantee point')
+    if (!guaranteeRow) return
+
+    // Add name attribute to all radio buttons in this row to group them
+    guaranteeRow.querySelectorAll('input[type="radio"]').forEach((radio) => {
+      radio.setAttribute('name', 'guarantee-point')
+    })
+
+    // Add event listener to handle radio button changes
+    guaranteeRow.addEventListener('change', (e) => {
+      if (e.target.type === 'radio') {
+        // Uncheck all other radio buttons in the row
+        guaranteeRow
+          .querySelectorAll('input[type="radio"]')
+          .forEach((radio) => {
+            if (radio !== e.target) {
+              radio.checked = false
+            }
+          })
+      }
+    })
+  }
+
+  // Initialize radio buttons when the page loads
+  initializeGuaranteePointRadios()
 })
 
 // Move initializeDragAndDrop outside of DOMContentLoaded
@@ -651,52 +706,40 @@ function initializeDragAndDrop() {
       row.parentNode.replaceChild(newRow, row)
     })
 
-  // Make all rows draggable except the total row
+  // Make rows draggable only when clicking the drag icon
   gasCompositionTable
     .querySelectorAll('tr:not(.gas-composition-total-row)')
     .forEach((row) => {
-      // Set draggable attribute on the entire row
-      row.setAttribute('draggable', 'true')
+      // Initially set draggable to false
+      row.setAttribute('draggable', 'false')
 
-      // Mouse down event to track initial position
-      row.addEventListener('mousedown', (e) => {
-        // Don't initiate drag if clicking on interactive elements
-        if (
-          e.target.closest(
-            'input, button, select, .decimal-controls, .add-button'
-          )
-        ) {
-          row.setAttribute('draggable', 'false')
-          return
-        }
+      // Get the drag icon cell
+      const dragIconCell = row.querySelector('td:first-child')
+      if (!dragIconCell) return
 
-        dragStartY = e.clientY
-        row.setAttribute('draggable', 'true')
-      })
-
-      // Mouse move event to check if we should start dragging
-      row.addEventListener('mousemove', (e) => {
-        if (!row.hasAttribute('draggable')) return
-
-        const deltaY = Math.abs(e.clientY - dragStartY)
-        if (deltaY > DRAG_THRESHOLD) {
-          row.draggable = true
+      // Mouse down event on drag icon
+      dragIconCell.addEventListener('mousedown', (e) => {
+        // Only start drag if clicking directly on the drag icon image
+        if (e.target.tagName === 'IMG') {
+          e.stopPropagation() // Prevent event from bubbling up
+          dragStartY = e.clientY
+          row.setAttribute('draggable', 'true')
         }
       })
 
       // Mouse up event to reset draggable state
-      row.addEventListener('mouseup', () => {
-        row.setAttribute('draggable', 'true')
-      })
+      document.addEventListener(
+        'mouseup',
+        () => {
+          row.setAttribute('draggable', 'false')
+        },
+        { once: true }
+      )
 
       // Drag start
       row.addEventListener('dragstart', (e) => {
-        // Don't start drag if clicking on interactive elements
-        if (
-          e.target.closest(
-            'input, button, select, .decimal-controls, .add-button'
-          )
-        ) {
+        // Only allow drag if clicking the drag icon
+        if (!e.target.closest('td:first-child img')) {
           e.preventDefault()
           return
         }
@@ -725,7 +768,7 @@ function initializeDragAndDrop() {
           placeholder.parentNode.removeChild(placeholder)
         }
         placeholder = null
-        row.setAttribute('draggable', 'true')
+        row.setAttribute('draggable', 'false')
       })
 
       // Drag over
@@ -784,11 +827,19 @@ function initializeDragAndDrop() {
 
   // Add click event delegation for interactive elements
   gasCompositionTable.addEventListener('click', (e) => {
-    const target = e.target
-    if (
-      target.closest('input, button, select, .decimal-controls, .add-button')
-    ) {
+    // Allow clicks on inputs and other interactive elements
+    if (e.target.closest('input, button, select, .decimal-controls')) {
       e.stopPropagation()
+      return
+    }
+  })
+
+  // Add mousedown event delegation for interactive elements
+  gasCompositionTable.addEventListener('mousedown', (e) => {
+    // Allow mousedown on inputs and other interactive elements
+    if (e.target.closest('input, button, select, .decimal-controls')) {
+      e.stopPropagation()
+      return
     }
   })
 }
