@@ -691,7 +691,12 @@ th.case-column {
 }
 
 .gas-composition-table tbody tr:not(.gas-composition-total-row) td {
-  pointer-events: none;
+  pointer-events: auto;
+}
+
+.gas-composition-table tbody tr:not(.gas-composition-total-row) td input {
+  pointer-events: auto;
+  opacity: 1;
 }
 
 .gas-composition-table tbody tr:not(.gas-composition-total-row) td:first-child {
