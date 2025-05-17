@@ -201,7 +201,7 @@ td.cross-icon {
 .select-gas-components > div {
   max-height: 300px;
   overflow-y: scroll;
-  height: 300px;
+  height: 258px;
 }
 
 .catious {
@@ -770,4 +770,26 @@ button.gas-composition-add-btn {
 
 .selected-components-table > .table-responsive {
   height: 261px;
+}
+
+.select-gas-components-header {
+  height: auto !important;
+  max-height: auto !important;
+  overflow: auto !important;
+}
+
+.selected-components-table > div.table-responsive {
+  border: 1px solid;
+}
+
+.selected-components-table table {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+@media (max-width: 767px) {
+  .select-gas-components thead th {
+    font-size: 13px;
+  }
 }

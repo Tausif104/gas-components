@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const table = document.querySelector('.select-gas-components table')
-  const headers = table.querySelectorAll('th')
+  const headerTable = document.querySelector(
+    '.select-gas-components-header table'
+  )
+  const bodyTable = document.querySelector(
+    '.select-gas-components .table-responsive table'
+  )
+  const headers = headerTable.querySelectorAll('th')
   let currentSort = {
     column: null,
     direction: 'asc',
@@ -38,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         direction === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'
 
       // Sort the table
-      sortTable(table, column, direction)
+      sortTable(bodyTable, column, direction)
 
       // Update current sort
       currentSort = { column, direction }
