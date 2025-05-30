@@ -1,0 +1,854 @@
+body {
+  font-family: 'Arial', sans-serif;
+  color: #8f8f8f;
+}
+
+* {
+  color: #8f8f8f;
+}
+
+.container {
+  max-width: 2060px !important;
+}
+
+section.gas-components-section {
+  margin-top: 50px;
+}
+
+h4 {
+  color: #494949 !important;
+  font-size: 18px;
+  margin-bottom: 8px !important;
+  padding-left: 15px;
+  margin-top: 9px;
+}
+
+.gas-components-wrapper {
+  border: 1px solid #8f8f8f;
+  border-radius: 5px;
+  padding: 40px 80px;
+}
+
+.select-gas-components thead th {
+  font-weight: 500;
+  color: #22c1a9;
+  font-size: 18px;
+}
+
+.select-gas-components thead th:first-child {
+  color: #333 !important;
+}
+
+.select-gas-components table {
+  width: 100%;
+}
+
+.select-gas-components tr {
+  border-bottom: 1px solid #8f8f8f;
+}
+
+.select-gas-components table {
+  border-bottom: none;
+  border-radius: 3px;
+}
+
+.select-gas-components table th,
+.select-gas-components table td {
+  padding: 6px 11px;
+}
+
+button {
+  border: 1px solid #8f8f8f;
+  background-color: transparent;
+  font-weight: bold;
+  color: #22c1a9;
+  font-size: 16px;
+  padding: 10px 10px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 3px !important;
+}
+
+button i {
+  border: 1px solid #8f8f8f;
+  width: 30px;
+  display: inline-block;
+  line-height: 30px;
+  padding: 6px 0;
+  color: #22c1a9;
+  border-radius: 3px;
+}
+
+.add-component button {
+  justify-self: end;
+}
+
+.search-bar span {
+  border: none;
+  padding: 0;
+}
+
+.search-bar span i {
+  border: none;
+  padding: 0;
+  width: auto;
+  color: #8f8f8f;
+}
+
+.search-bar input {
+  border: none;
+}
+
+.search-bar form {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #8f8f8f;
+  border-radius: 3px;
+}
+
+.search-bar form input {
+  width: 100%;
+  padding: 13px;
+}
+
+.search-bar form span {
+  padding: 15px;
+}
+
+.selected-components-table tr {
+  border-bottom: 1px solid #8f8f8f;
+}
+
+.selected-components-table table {
+  width: 100%;
+  border: 1px solid #8f8f8f;
+  border-bottom: none;
+}
+
+.selected-components-table table td:first-child {
+  padding: 6px 5px;
+  text-align: center;
+}
+
+.select-gas-components table td:first-child {
+  border-left: 1px solid #8f8f8f;
+}
+
+.select-gas-components table td:last-child {
+  border-right: 1px solid #8f8f8f;
+}
+
+td.cross-icon i {
+  color: #22c1a9;
+  border: 1px solid #8f8f8f;
+  padding: 4px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+td.cross-icon {
+  text-align: center;
+}
+
+.select-gas-components table tbody tr {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select-gas-components table tbody tr:hover {
+  background-color: rgba(34, 193, 169, 0.05);
+}
+
+.select-gas-components table tbody tr.selected {
+  background-color: rgba(34, 193, 169, 0.15);
+  position: relative;
+}
+
+.select-gas-components table tbody tr.selected td {
+  color: #22c1a9;
+}
+
+.button-right button {
+  justify-self: end;
+}
+
+.gas-characteristics-table {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+}
+
+.gas-table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #8f8f8f;
+  border-bottom: none;
+  border-right: none;
+  width: 50%;
+}
+
+.gas-table span {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #8f8f8f;
+  padding: 6px 12px;
+}
+
+.gas-table:last-child {
+  border-right: 1px solid;
+}
+
+.catious {
+  border: 1px solid #8f8f8f;
+  border-radius: 3px;
+  padding: 25px 10px;
+  margin-top: 20px;
+}
+
+.catious ul {
+  margin-bottom: 0;
+}
+
+.select-gas-components > div {
+  max-height: 300px;
+  overflow-y: scroll;
+  height: 258px;
+}
+
+.catious {
+  max-height: 220px;
+  overflow-y: scroll;
+}
+
+h4 span {
+  color: #494949;
+  border: 1px solid #494949;
+  width: 30px;
+  display: inline-block;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50px;
+}
+
+.inlet-conditions {
+  padding: 40px 80px;
+  border: 1px solid #8f8f8f;
+  border-radius: 5px;
+}
+
+section.inlet-conditions-section {
+  margin-top: 50px;
+}
+
+section.inlet-conditions-section th {
+  color: #494949;
+  font-weight: 500;
+}
+
+section.inlet-conditions-section > table {
+  width: 1150px;
+}
+.inlet-conditions th,
+.inlet-conditions td,
+.gas-composition-table th,
+.gas-composition-table td {
+  padding: 7px 7px 7px 7px;
+  border: 1px solid #8f8f8f;
+  width: 200px;
+  text-align: center;
+}
+
+.inlet-conditions th {
+  border: none;
+}
+
+section.inlet-conditions-section .inlet-conditions tr td:first-child {
+  width: 48px;
+  border: none;
+  max-width: 48px;
+}
+
+section.inlet-conditions-section .inlet-conditions tr th:first-child {
+  width: auto;
+}
+
+section.inlet-conditions-section .inlet-conditions tr td:nth-child(2) {
+  width: 350px;
+  text-align: left;
+}
+
+select {
+  border: none;
+  padding-right: 15px;
+}
+
+select {
+  color: #22c1a9;
+  font-weight: 500;
+}
+
+td input[type='text'],
+td input[type='number'] {
+  border: none;
+  text-align: center;
+  opacity: 0.7;
+}
+
+.gas-composition-buttons,
+.calculated-properties-buttons {
+  max-width: 1151px;
+  margin-left: 48px;
+}
+
+.gas-buttons-left {
+  gap: 20px;
+}
+
+.gas-buttons-right button {
+  justify-self: right;
+}
+
+.calculated-table-buttons-left {
+  gap: 20px;
+}
+
+.calculated-table-buttons-right {
+  justify-content: end;
+}
+
+button.inline-btn {
+  padding: 0;
+  border: none;
+  font-weight: normal;
+}
+
+.calculated-table-buttons-right button i {
+  border: none;
+  padding: 0;
+  width: auto;
+}
+
+.calculated-table-buttons-right {
+  gap: 20px;
+}
+
+section.inlet-conditions-section {
+  margin-bottom: 100px;
+}
+
+section.inlet-conditions-section th:nth-child(2) {
+  text-align: left;
+  font-size: 18px;
+  width: 350px;
+}
+
+.gas-composition-table th:nth-child(3) {
+  border: 1px solid #8f8f8f;
+  border-bottom: none;
+}
+
+.sticky-table-header {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1;
+}
+
+span.add-button i {
+  color: #22c1a9;
+}
+
+span.add-button {
+  border: 1px solid #8f8f8f;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  margin-left: 10px;
+  border-radius: 4px;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  text-align: center;
+  justify-content: center;
+}
+
+td input[type='text']:focus,
+td input[type='number']:focus {
+  outline: none;
+}
+
+.catious li {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.catious li:last-child {
+  margin-bottom: 0;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+.search-bar form input:focus {
+  outline: none;
+}
+
+/* Custom Radio and Checkbox Styling */
+input[type='radio'],
+input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #22c1a9;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+  margin: 0;
+}
+
+input[type='checkbox'] {
+  border-radius: 3px;
+}
+
+input[type='radio']:checked,
+input[type='checkbox']:checked {
+  background-color: #22c1a9;
+}
+
+input[type='radio']:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+input[type='checkbox']:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  line-height: 1;
+}
+
+input[type='radio']:hover,
+input[type='checkbox']:hover {
+  border-color: #1ba890;
+}
+
+input[type='radio']:checked:hover,
+input[type='checkbox']:checked:hover {
+  background-color: #1ba890;
+  border-color: #1ba890;
+}
+
+/* Focus styles for accessibility */
+input[type='radio']:focus,
+input[type='checkbox']:focus {
+  box-shadow: 0 0 0 2px rgba(34, 193, 169, 0.2);
+}
+
+/* Disabled state */
+input[type='radio']:disabled,
+input[type='checkbox']:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: #ccc;
+}
+
+input[type='radio']:disabled:checked,
+input[type='checkbox']:disabled:checked {
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+select {
+  outline: none;
+}
+
+.calculated-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.calculated-header select {
+  max-width: 300px;
+  box-shadow: none !important;
+}
+
+.calculated-header select:focus {
+  border-color: #1ba890;
+}
+
+.decimal-controls button {
+  border: none;
+  padding: 0;
+  display: flex;
+}
+
+.decimal-controls button i {
+  padding: 0;
+  width: auto;
+  border: none;
+}
+
+.decimal-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.decimal-controls-wrapper {
+  border: 1px solid #dee2e6;
+  padding: 0 12px;
+}
+
+select.form-select {
+  color: #8f8f8f;
+}
+
+.theme-select {
+  width: auto;
+  min-width: 100px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.theme-select:focus {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border-color: var(--primary-color);
+}
+
+@media (max-width: 991.98px) {
+  .theme-select {
+    margin-right: 0.5rem !important;
+  }
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: var(--bg-color) !important;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand {
+  color: var(--text-color) !important;
+}
+
+.nav-link {
+  color: var(--text-color) !important;
+}
+
+.nav-link:hover {
+  color: var(--primary-color) !important;
+}
+
+.navbar-toggler {
+  border-color: var(--border-color);
+}
+
+.navbar-toggler-icon {
+  background-image: var(--navbar-toggler-icon);
+}
+
+tr.gas-composition-last-row td {
+  border: none;
+  padding: 20px;
+}
+
+tr.gas-composition-last-row td {
+  justify-content: center;
+}
+
+tr.gas-composition-last-row td > * {
+  margin: 0 auto;
+}
+
+button.gas-composition-close-btn,
+button.gas-composition-add-btn {
+  padding: 0;
+  border: none;
+}
+
+button.delete-column-btn {
+  border: none;
+  padding: 0;
+}
+
+span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+th.case-column {
+  border: 1px solid #8f8f8f;
+}
+
+.calculated-header {
+  max-width: 1200px;
+}
+
+.menu-icon i {
+  color: #22c1a9;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  color: #22c1a9 !important;
+}
+
+.add-button {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #8f8f8f;
+  border-radius: 4px;
+  margin-left: 10px;
+  transition: all 0.2s ease;
+}
+
+.add-button i {
+  color: #22c1a9;
+  border: none;
+  width: auto;
+  padding: 0;
+}
+
+.add-button:hover {
+  border-color: #22c1a9;
+}
+
+.add-button.checked i {
+  color: #22c1a9;
+}
+
+/* Drag and drop styles */
+.gas-composition-table tbody tr:not(.gas-composition-total-row) {
+  cursor: grab;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.gas-composition-table tbody tr:not(.gas-composition-total-row):active {
+  cursor: grabbing;
+}
+
+.gas-composition-table tbody tr.dragging {
+  opacity: 0.5;
+  background-color: #f8f9fa;
+  cursor: grabbing;
+}
+
+.gas-composition-table tbody tr:not(.gas-composition-total-row):hover {
+  background-color: #f8f9fa;
+}
+
+.gas-composition-table tbody tr:not(.gas-composition-total-row) td {
+  pointer-events: auto;
+}
+
+.gas-composition-table tbody tr:not(.gas-composition-total-row) td input {
+  pointer-events: auto;
+}
+
+.gas-composition-table tbody tr:not(.gas-composition-total-row) td:first-child {
+  pointer-events: auto;
+}
+
+.gas-composition-table
+  tbody
+  tr:not(.gas-composition-total-row)
+  td:first-child
+  img {
+  cursor: grab;
+}
+
+.gas-composition-table
+  tbody
+  tr:not(.gas-composition-total-row)
+  td:first-child
+  img:active {
+  cursor: grabbing;
+}
+
+h4.heading {
+  font-size: 28px;
+  margin-bottom: 12px !important;
+  display: inline-block;
+}
+
+.case-one button.delete-column-btn {
+  display: none;
+}
+
+.calculated-header h4 {
+  font-size: 18px;
+  padding-left: 62px;
+}
+
+td input[type='text']:focus::placeholder,
+td input[type='number']:focus::placeholder {
+  opacity: 0.5;
+}
+
+button img {
+  max-width: 18px;
+}
+
+.gc-buttons-wrapper {
+  margin-left: 47px;
+}
+
+button.gas-composition-add-btn {
+  margin-left: 12.5%;
+}
+
+.decimal-value i {
+  font-size: 11px;
+}
+
+.decimal-controls {
+  gap: 5px;
+}
+
+.decimal-controls.decimal-controls-global i {
+  font-size: 11px;
+}
+
+.select-wrapper {
+  border: 1px solid #8f8f8f;
+  padding: 10px;
+  padding-right: 10px !important;
+}
+
+.decimal-controls-wrapper span {
+  color: #22c1a9;
+}
+
+.selected-components-table > .table-responsive {
+  height: 261px;
+}
+
+.select-gas-components-header {
+  height: auto !important;
+  max-height: auto !important;
+  overflow: auto !important;
+}
+
+.selected-components-table > div.table-responsive {
+  border: 1px solid;
+}
+
+.selected-components-table table {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+@media (max-width: 767px) {
+  .select-gas-components thead th {
+    font-size: 13px;
+  }
+}
+
+.selected-components-table table tbody tr {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.selected-components-table table tbody tr:hover {
+  background-color: rgba(34, 193, 169, 0.05);
+}
+
+.selected-components-table table tbody tr.selected {
+  background-color: rgba(34, 193, 169, 0.15);
+  position: relative;
+  border-left: 4px solid #22c1a9;
+}
+
+.selected-components-table table tbody tr.selected td {
+  font-weight: 500;
+  color: #22c1a9;
+}
+
+.select-gas-components .table-responsive tr:last-child {
+  border: none;
+}
+
+.select-gas-components .table-responsive {
+  border-bottom: 1px solid;
+}
+
+.full-page-wrapper {
+  background-color: #fff;
+  margin: 100px;
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 50px;
+}
+
+body {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}

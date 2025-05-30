@@ -1,0 +1,170 @@
+:root {
+  /* Light theme (default) - using your original colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
+}
+
+[data-theme='dark'] {
+  /* Dark theme - only background colors */
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-color: #ffffff;
+  --select-bg: #2d2d2d;
+  --select-border: #404040;
+  --bg-transparent: transparent;
+  --theme-color: #22c1a9;
+  --scrollbar-track: #2d2d2d;
+  --scrollbar-thumb: #666;
+  --scrollbar-thumb-hover: #888;
+}
+
+/* Apply theme variables - only for dark mode */
+[data-theme='dark'] body {
+  background-color: var(--bg-primary);
+}
+
+[data-theme='dark'] .gas-components-section,
+[data-theme='dark'] .inlet-conditions-section {
+  background-color: var(--bg-primary);
+}
+
+[data-theme='dark'] .select-gas-components,
+[data-theme='dark'] .selected-components,
+[data-theme='dark'] .gas-characteristics,
+[data-theme='dark'] .inlet-conditions-section-wrapper {
+  background-color: var(--bg-transparent);
+}
+
+/* Dark mode text and select styles */
+[data-theme='dark'] {
+  color: var(--text-color);
+}
+
+[data-theme='dark'] select {
+  background-color: var(--bg-transparent) !important;
+  border-color: var(--select-border) !important;
+  color: var(--theme-color) !important;
+}
+
+[data-theme='dark'] select option {
+  background-color: var(--select-bg);
+  color: var(--text-color);
+}
+
+/* Theme switcher styles */
+.theme-switcher {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.theme-options {
+  display: flex;
+  gap: 8px;
+  background-color: var(--bg-secondary);
+  padding: 4px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-options:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  color: #f1c40f;
+}
+
+.theme-toggle.active {
+  background-color: var(--bg-primary);
+  color: #f1c40f;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 50px !important;
+}
+
+.theme-toggle i {
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Light mode icon styles */
+[data-theme='light'] .dark-icon,
+[data-theme='dark'] .light-icon {
+  display: none;
+}
+
+[data-theme='light'] .light-icon {
+  color: #f1c40f;
+}
+
+[data-theme='dark'] .dark-icon {
+  color: #f1c40f;
+}
+
+button.theme-toggle i {
+  border: none;
+  padding: 0;
+  width: auto;
+}
+
+.select-gas-components table th {
+  background-color: var(--bg-primary);
+}
+
+input[type='search'] {
+  background: var(--bg-transparent);
+}
+
+td input[type='text'],
+td input[type='number'] {
+  background-color: var(--bg-transparent);
+}
+
+.decimal-controls-wrapper,
+select.form-select {
+  border-color: var(--select-border);
+}
+
+.navbar-bg {
+  background-color: var(--bg-primary);
+}
+
+:root[data-theme='light'] {
+  --bg-color: #ffffff;
+  --text-color: #212529;
+  --border-color: #dee2e6;
+  --primary-color: #0d6efd;
+  --navbar-toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(33, 37, 41, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+:root[data-theme='dark'] {
+  --bg-color: #212529;
+  --text-color: #f8f9fa;
+  --border-color: #495057;
+  --primary-color: #0d6efd;
+  --navbar-toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(248, 249, 250, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}

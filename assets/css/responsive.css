@@ -1,0 +1,82 @@
+@media (max-width: 1700px) {
+  .button-wrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .search-bar-wrapper {
+    margin-bottom: 30px;
+  }
+  .add-component button {
+    justify-self: start;
+    margin-top: 20px;
+  }
+}
+@media (max-width: 1200px) {
+  .gas-characteristics {
+    margin-top: 20px;
+  }
+  .gas-buttons-right button {
+    justify-self: left;
+  }
+
+  .gas-buttons-right {
+    margin-top: 20px;
+  }
+
+  .gas-components-wrapper {
+    padding: 30px;
+  }
+
+  .inlet-conditions {
+    padding: 30px;
+  }
+}
+@media (max-width: 768px) {
+  .button-right button {
+    justify-self: start;
+    margin-top: 20px;
+  }
+
+  .calculated-table-buttons-right.d-flex {
+    justify-content: start;
+    margin-top: 20px;
+  }
+
+  .calculated-table-buttons-left {
+    flex-direction: column;
+  }
+
+  .calculated-properties-buttons.mt-4 {
+    margin-left: 0;
+  }
+
+  .gas-composition-buttons,
+  .calculated-properties-buttons {
+    margin-left: 0;
+  }
+
+  .gas-buttons-left.d-flex {
+    flex-direction: column;
+  }
+
+  .gas-buttons-left.d-flex button {
+    justify-content: center;
+  }
+
+  .gas-buttons-right button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .select-gas-components table th,
+  .select-gas-components table td {
+    min-width: 110px;
+  }
+  .select-gas-components table td:first-child,
+  .select-gas-components table th:first-child {
+    min-width: 48px !important;
+  }
+}
