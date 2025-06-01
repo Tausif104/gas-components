@@ -148,6 +148,34 @@ function handleRowClick(row) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function () {
+  // Initialize drag and drop for gas composition table
+  const gasCompositionTableBody = document.querySelector(
+    '.gas-composition-table table tbody'
+  )
+  if (gasCompositionTableBody) {
+    new Sortable(gasCompositionTableBody, {
+      handle: 'td:first-child img', // Only drag by the icon
+      animation: 150,
+      ghostClass: 'dragging',
+      dragClass: 'dragging',
+      filter: '.gas-composition-total-row', // Don't allow dragging the total row
+      onEnd: function (evt) {
+        // Update the order of components if needed
+        const rows = gasCompositionTableBody.querySelectorAll(
+          'tr:not(.gas-composition-total-row)'
+        )
+        const totalRow = gasCompositionTableBody.querySelector(
+          '.gas-composition-total-row'
+        )
+
+        // Move total row to the end if it's not already there
+        if (totalRow && totalRow.nextElementSibling) {
+          gasCompositionTableBody.appendChild(totalRow)
+        }
+      },
+    })
+  }
+
   // Add search functionality
   const searchInput = document.querySelector('.search-bar input[type="search"]')
   if (searchInput && gasTable) {
