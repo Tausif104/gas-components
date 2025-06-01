@@ -148,6 +148,31 @@ function handleRowClick(row) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function () {
+  // Add search functionality
+  const searchInput = document.querySelector('.search-bar input[type="search"]')
+  if (searchInput && gasTable) {
+    searchInput.addEventListener('input', function (e) {
+      const searchQuery = e.target.value.toLowerCase().trim()
+      const rows = gasTable.getElementsByTagName('tr')
+
+      Array.from(rows).forEach((row) => {
+        const cells = row.getElementsByTagName('td')
+        let found = false
+
+        // Search through all cells except the first one (drag icon)
+        for (let i = 1; i < cells.length; i++) {
+          if (cells[i].textContent.toLowerCase().includes(searchQuery)) {
+            found = true
+            break
+          }
+        }
+
+        // Show/hide row based on search match
+        row.style.display = found ? '' : 'none'
+      })
+    })
+  }
+
   // Add click handlers to gas component rows
   const gasRows = gasTable.getElementsByTagName('tr')
   Array.from(gasRows).forEach((row) => {
