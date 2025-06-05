@@ -54,7 +54,7 @@ h4 {
 
 .select-gas-components table th,
 .select-gas-components table td {
-  padding: 6px 11px;
+  padding: 6px 0;
 }
 
 button {
@@ -851,4 +851,36 @@ body {
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
+}
+
+.selected-components-table span {
+  display: inline-block;
+}
+
+.selected-components-table table tbody tr {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px;
+  align-items: center;
+}
+
+.select-gas-components table th,
+.select-gas-components table td {
+  width: 150px;
+}
+
+.select-gas-components table td:first-child,
+.select-gas-components table th:first-child {
+  width: 50px;
+  padding: 0 20px;
+}
+
+.select-gas-components table th:first-child span {
+  display: inline-block;
+}
+
+.fa-sort,
+.fa-sort-up,
+.fa-sort-down {
+  font-size: 13px;
 }

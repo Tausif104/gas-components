@@ -35,8 +35,7 @@ function createSelectedComponentRow(data) {
   row.id = data.componentId
   row.dataset.componentId = data.componentId
   row.innerHTML = `
-    <td>${data.id}</td>
-    <td>${data.description}</td>
+    <td><span>${data.id}</span> ${data.description}</td>
     <td class="cross-icon"><i class="fas fa-times"></i></td>
   `
   return row
@@ -101,8 +100,9 @@ function syncGasCompositionTable() {
   // Get all selected components
   const selectedRows = selectedComponentsTable.getElementsByTagName('tr')
   Array.from(selectedRows).forEach((row) => {
-    const id = row.cells[0].textContent.trim()
-    const description = row.cells[1].textContent.trim()
+    const firstCell = row.cells[0]
+    const id = firstCell.querySelector('span').textContent.trim()
+    const description = firstCell.textContent.replace(id, '').trim()
     const data = {
       id,
       description,
@@ -144,6 +144,68 @@ function handleRowClick(row) {
 
   // Sync gas composition table after any change
   syncGasCompositionTable()
+}
+
+// Function to sort table
+function sortTable(column, type = 'string') {
+  const headerTable = document.querySelector(
+    '.select-gas-components-header table'
+  )
+  const bodyTable = document.querySelector(
+    '.select-gas-components .table-responsive table'
+  )
+  if (!headerTable || !bodyTable) return
+
+  const tableBody = bodyTable.querySelector('tbody')
+  const headers = headerTable.querySelectorAll('th')
+  if (!tableBody || !headers.length) return
+
+  // Get current sort direction
+  const currentHeader = headers[column]
+  const isAsc = currentHeader.classList.contains('sort-asc')
+
+  // Update sort classes
+  headers.forEach((header) => {
+    header.classList.remove('sort-asc', 'sort-desc')
+    const icon = header.querySelector('i')
+    if (icon) {
+      icon.className = 'fas fa-sort ms-1'
+    }
+  })
+
+  // Set new sort direction (skip icon update for ID column)
+  currentHeader.classList.add(isAsc ? 'sort-desc' : 'sort-asc')
+  if (column !== 0) {
+    // Skip icon update for ID column
+    const currentIcon = currentHeader.querySelector('i')
+    if (currentIcon) {
+      currentIcon.className = isAsc
+        ? 'fas fa-sort-down ms-1'
+        : 'fas fa-sort-up ms-1'
+    }
+  }
+
+  // Get and sort rows
+  const rows = Array.from(tableBody.getElementsByTagName('tr'))
+  rows.sort((a, b) => {
+    let aValue = a.cells[column].textContent.trim()
+    let bValue = b.cells[column].textContent.trim()
+
+    if (type === 'number') {
+      aValue = parseFloat(aValue) || 0
+      bValue = parseFloat(bValue) || 0
+    } else if (type === 'date') {
+      aValue = new Date(aValue)
+      bValue = new Date(bValue)
+    }
+
+    if (aValue < bValue) return isAsc ? -1 : 1
+    if (aValue > bValue) return isAsc ? 1 : -1
+    return 0
+  })
+
+  // Reorder rows
+  rows.forEach((row) => tableBody.appendChild(row))
 }
 
 // Initialize
@@ -223,8 +285,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // Add componentId to existing selected components
   const selectedRows = selectedComponentsTable.getElementsByTagName('tr')
   Array.from(selectedRows).forEach((row) => {
-    const id = row.cells[0].textContent.trim()
-    const description = row.cells[1].textContent.trim()
+    const firstCell = row.cells[0]
+    const id = firstCell.querySelector('span').textContent.trim()
+    const description = firstCell.textContent.replace(id, '').trim()
     const componentId = generateComponentId(id, description)
     row.id = componentId
     row.dataset.componentId = componentId
@@ -268,4 +331,30 @@ document.addEventListener('DOMContentLoaded', function () {
       syncGasCompositionTable()
     })
   }
+
+  // Add sorting functionality to gas components table
+  const headers = document.querySelectorAll('.select-gas-components-header th')
+  headers.forEach((header, index) => {
+    // Skip if header doesn't have text content
+    if (!header.textContent.trim()) return
+
+    // Add cursor pointer and sort icon (except for ID column)
+    header.style.cursor = 'pointer'
+    if (index !== 0 && !header.querySelector('i')) {
+      // Skip icon for ID column (index 0)
+      const sortIcon = document.createElement('i')
+      sortIcon.className = 'fas fa-sort ms-1'
+      header.appendChild(sortIcon)
+    }
+
+    // Add click handler
+    header.addEventListener('click', () => {
+      // Determine sort type based on column
+      let sortType = 'string'
+      if (index === 0) sortType = 'number' // ID column
+      if (index === 4) sortType = 'date' // Last Modified column
+
+      sortTable(index, sortType)
+    })
+  })
 })
