@@ -884,3 +884,44 @@ body {
 .fa-sort-down {
   font-size: 13px;
 }
+
+button.delete-column-btn i {
+  padding: 4px;
+}
+
+button.delete-column-btn {
+  width: 26px;
+}
+
+.decimal-controls {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.decimal-value span.value {
+  justify-content: center;
+}
+
+.decimal-controls-wrapper button {
+  border: none;
+  padding: 0;
+}
+
+.decimal-controls-wrapper button i {
+  padding: 0;
+  border: none;
+}
+
+.decimal-controls-global {
+  display: flex;
+}
+
+.select-wrapper {
+  border-radius: 4px;
+}
+
+.decimal-controls-wrapper {
+  border-radius: 4px;
+}

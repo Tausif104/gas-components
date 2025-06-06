@@ -41,6 +41,42 @@ function createSelectedComponentRow(data) {
   return row
 }
 
+// Function to calculate and update totals in gas composition table
+function updateGasCompositionTotals() {
+  const gasCompositionTable = document.querySelector(
+    '.gas-composition-table table'
+  )
+  if (!gasCompositionTable) return
+
+  const totalRow = gasCompositionTable.querySelector(
+    '.gas-composition-total-row'
+  )
+  if (!totalRow) return
+
+  // Get all input columns (skip first 3 columns: drag icon, description, and unit)
+  const inputColumns = Array.from(totalRow.cells).slice(3)
+
+  // For each input column
+  inputColumns.forEach((totalCell, columnIndex) => {
+    // Get all input values in this column (excluding total row)
+    const inputs = gasCompositionTable.querySelectorAll(
+      `tbody tr:not(.gas-composition-total-row) td:nth-child(${
+        columnIndex + 4
+      }) input`
+    )
+    let sum = 0
+
+    // Sum up all valid input values
+    inputs.forEach((input) => {
+      const value = parseFloat(input.value) || 0
+      sum += value
+    })
+
+    // Update total cell with formatted sum
+    totalCell.textContent = sum.toFixed(3)
+  })
+}
+
 // Function to create a gas composition row
 function createGasCompositionRow(data) {
   const row = document.createElement('tr')
@@ -50,10 +86,17 @@ function createGasCompositionRow(data) {
     <td><img src="assets/images/drag-icon.png" alt=""></td>
     <td>${data.description}</td>
     <td>mol %</td>
-    <td><input type="number" placeholder="Enter Value"></td>
-    <td><input type="number" placeholder="Enter Value"></td>
-    <td><input type="number" placeholder="Enter Value"></td>
+    <td><input type="number" placeholder="Enter Value" step="0.001" min="0"></td>
+    <td><input type="number" placeholder="Enter Value" step="0.001" min="0"></td>
+    <td><input type="number" placeholder="Enter Value" step="0.001" min="0"></td>
   `
+
+  // Add input event listeners to calculate totals
+  const inputs = row.querySelectorAll('input')
+  inputs.forEach((input) => {
+    input.addEventListener('input', updateGasCompositionTotals)
+  })
+
   return row
 }
 
@@ -208,6 +251,225 @@ function sortTable(column, type = 'string') {
   rows.forEach((row) => tableBody.appendChild(row))
 }
 
+// Function to handle decimal controls
+function handleDecimalControls(decimalCell, initialValue = 97.33) {
+  const valueSpan = decimalCell.querySelector('.value')
+  const decreaseBtn = decimalCell.querySelector('.decrease-decimal')
+  const increaseBtn = decimalCell.querySelector('.increase-decimal')
+
+  if (!valueSpan || !decreaseBtn || !increaseBtn) return
+
+  let currentValue = parseFloat(initialValue)
+  let decimalPlaces = 2 // Start with 2 decimal places
+  const maxDecimalPlaces = 6 // Maximum number of decimal places
+
+  function updateDisplay() {
+    // Get the base value with 2 decimal places
+    const baseValue = currentValue.toFixed(2)
+    // Get the repeating part (last two digits)
+    const repeatingPart = baseValue.split('.')[1]
+
+    // Create the number with desired decimal places
+    let displayValue = baseValue.split('.')[0] + '.' // Whole number part
+    for (let i = 0; i < decimalPlaces; i++) {
+      displayValue += repeatingPart[i % 2] // Repeat the last two digits
+    }
+
+    valueSpan.textContent = displayValue
+  }
+
+  // Store the update function on the cell for global updates
+  decimalCell.updateDecimalPlaces = function (newDecimalPlaces) {
+    decimalPlaces = newDecimalPlaces
+    updateDisplay()
+  }
+
+  decreaseBtn.addEventListener('click', () => {
+    if (decimalPlaces > 2) {
+      // Don't go below 2 decimal places
+      decimalPlaces--
+      updateDisplay()
+      // Update global decimal value display
+      const globalDecimalValue = document.getElementById('globalDecimalValue')
+      if (globalDecimalValue) {
+        globalDecimalValue.textContent = decimalPlaces
+      }
+    }
+  })
+
+  increaseBtn.addEventListener('click', () => {
+    if (decimalPlaces < maxDecimalPlaces) {
+      decimalPlaces++
+      updateDisplay()
+      // Update global decimal value display
+      const globalDecimalValue = document.getElementById('globalDecimalValue')
+      if (globalDecimalValue) {
+        globalDecimalValue.textContent = decimalPlaces
+      }
+    }
+  })
+
+  // Initial display
+  updateDisplay()
+}
+
+// Function to update all decimal cells globally
+function updateGlobalDecimalPlaces(decimalPlaces) {
+  const decimalCells = document.querySelectorAll('.decimal-value')
+  decimalCells.forEach((cell) => {
+    if (cell.updateDecimalPlaces) {
+      cell.updateDecimalPlaces(decimalPlaces)
+    }
+  })
+}
+
+// Function to add a new column to all tables
+function addNewColumn() {
+  // Get all three tables
+  const projectPropertiesTable = document.querySelector(
+    '.project-properties-table table'
+  )
+  const gasCompositionTable = document.querySelector(
+    '.gas-composition-table table'
+  )
+  const calculatedPropertiesTable = document.querySelector(
+    '.calculated-properties-table table'
+  )
+
+  if (
+    !projectPropertiesTable ||
+    !gasCompositionTable ||
+    !calculatedPropertiesTable
+  )
+    return
+
+  // Generate new case number
+  const existingCases = document.querySelectorAll('.case-column')
+  const newCaseNumber = existingCases.length + 1
+
+  // Add column to Project Properties table
+  const projectHeader = projectPropertiesTable.querySelector('thead tr')
+  const newProjectHeader = document.createElement('th')
+  newProjectHeader.className = 'case-column'
+  newProjectHeader.innerHTML = `
+    <span>
+      Case ${newCaseNumber}
+      <button class="delete-column-btn"><i class="fas fa-times"></i></button>
+    </span>
+  `
+  projectHeader.appendChild(newProjectHeader)
+
+  // Add column to Project Properties table body rows
+  const projectBodyRows = projectPropertiesTable.querySelectorAll('tbody tr')
+  projectBodyRows.forEach((row) => {
+    const newCell = document.createElement('td')
+    const firstInput = row.querySelector('input')
+    if (firstInput) {
+      const inputType = firstInput.type
+      if (inputType === 'radio' || inputType === 'checkbox') {
+        newCell.innerHTML = `<input type="${inputType}">`
+      } else {
+        newCell.innerHTML = `<input type="${inputType}" placeholder="Enter Value">`
+      }
+    } else {
+      newCell.innerHTML = ''
+    }
+    row.appendChild(newCell)
+  })
+
+  // Add column to Gas Composition table
+  const gasHeader = gasCompositionTable.querySelector('thead tr')
+  const newGasHeader = document.createElement('th')
+  newGasHeader.innerHTML = ''
+  gasHeader.appendChild(newGasHeader)
+
+  // Add column to Gas Composition table body rows (except total row)
+  const gasBodyRows = gasCompositionTable.querySelectorAll(
+    'tbody tr:not(.gas-composition-total-row)'
+  )
+  gasBodyRows.forEach((row) => {
+    const newCell = document.createElement('td')
+    newCell.innerHTML =
+      '<input type="number" placeholder="Enter Value" step="0.001" min="0">'
+    row.appendChild(newCell)
+
+    // Add input event listener to new input
+    const input = newCell.querySelector('input')
+    if (input) {
+      input.addEventListener('input', updateGasCompositionTotals)
+    }
+  })
+
+  // Add column to Gas Composition total row
+  const gasTotalRow = gasCompositionTable.querySelector(
+    '.gas-composition-total-row'
+  )
+  if (gasTotalRow) {
+    const newTotalCell = document.createElement('td')
+    newTotalCell.innerHTML = '0.000'
+    gasTotalRow.appendChild(newTotalCell)
+  }
+
+  // Add column to Calculated Properties table
+  const calcBodyRows = calculatedPropertiesTable.querySelectorAll('tbody tr')
+  calcBodyRows.forEach((row) => {
+    const newCell = document.createElement('td')
+    const firstDecimalValue = row.querySelector('.decimal-value')
+    if (firstDecimalValue) {
+      // Get the value from the first cell in the row
+      const firstValue =
+        parseFloat(firstDecimalValue.querySelector('.value').textContent) ||
+        97.33
+
+      newCell.className = 'decimal-value'
+      newCell.innerHTML = `
+        <div class="position-relative">
+          <span class="value">${firstValue.toFixed(2)}</span>
+          <div class="decimal-controls">
+            <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
+            <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
+          </div>
+        </div>
+      `
+      // Initialize decimal controls with the same value as the first cell
+      handleDecimalControls(newCell, firstValue)
+    } else {
+      newCell.innerHTML = ''
+    }
+    row.appendChild(newCell)
+  })
+
+  // Add delete column functionality to the new column
+  const newDeleteBtn = newProjectHeader.querySelector('.delete-column-btn')
+  if (newDeleteBtn) {
+    newDeleteBtn.addEventListener('click', (e) => {
+      e.stopPropagation()
+      const columnIndex = Array.from(projectHeader.children).indexOf(
+        newProjectHeader
+      )
+
+      // Only allow deletion if it's not Case 1
+      if (!newProjectHeader.classList.contains('case-one')) {
+        // Remove column from all tables
+        projectPropertiesTable.querySelectorAll('tr').forEach((row) => {
+          const cell = row.cells[columnIndex]
+          if (cell) cell.remove()
+        })
+
+        gasCompositionTable.querySelectorAll('tr').forEach((row) => {
+          const cell = row.cells[columnIndex]
+          if (cell) cell.remove()
+        })
+
+        calculatedPropertiesTable.querySelectorAll('tr').forEach((row) => {
+          const cell = row.cells[columnIndex]
+          if (cell) cell.remove()
+        })
+      }
+    })
+  }
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', function () {
   // Initialize drag and drop for gas composition table
@@ -357,4 +619,105 @@ document.addEventListener('DOMContentLoaded', function () {
       sortTable(index, sortType)
     })
   })
+
+  // Add click handler for gas composition add button
+  const addButton = document.querySelector('.gas-composition-add-btn')
+  if (addButton) {
+    addButton.addEventListener('click', addNewColumn)
+  }
+
+  // Add delete column functionality to existing columns
+  const deleteButtons = document.querySelectorAll('.delete-column-btn')
+  deleteButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation()
+      const headerCell = btn.closest('th')
+
+      // Only allow deletion if it's not Case 1
+      if (!headerCell.classList.contains('case-one')) {
+        const columnIndex = Array.from(
+          headerCell.parentElement.children
+        ).indexOf(headerCell)
+
+        // Get all tables
+        const projectPropertiesTable = document.querySelector(
+          '.project-properties-table table'
+        )
+        const gasCompositionTable = document.querySelector(
+          '.gas-composition-table table'
+        )
+        const calculatedPropertiesTable = document.querySelector(
+          '.calculated-properties-table table'
+        )
+
+        if (
+          projectPropertiesTable &&
+          gasCompositionTable &&
+          calculatedPropertiesTable
+        ) {
+          // Remove column from all tables
+          projectPropertiesTable.querySelectorAll('tr').forEach((row) => {
+            const cell = row.cells[columnIndex]
+            if (cell) cell.remove()
+          })
+
+          gasCompositionTable.querySelectorAll('tr').forEach((row) => {
+            const cell = row.cells[columnIndex]
+            if (cell) cell.remove()
+          })
+
+          calculatedPropertiesTable.querySelectorAll('tr').forEach((row) => {
+            const cell = row.cells[columnIndex]
+            if (cell) cell.remove()
+          })
+        }
+      }
+    })
+  })
+
+  // Add input event listeners to existing gas composition inputs
+  const existingGasInputs = document.querySelectorAll(
+    '.gas-composition-table input[type="number"]'
+  )
+  existingGasInputs.forEach((input) => {
+    input.addEventListener('input', updateGasCompositionTotals)
+  })
+
+  // Initial calculation of totals
+  updateGasCompositionTotals()
+
+  // Initialize decimal controls for existing cells
+  const decimalCells = document.querySelectorAll('.decimal-value')
+  decimalCells.forEach((cell) => {
+    const valueSpan = cell.querySelector('.value')
+    if (valueSpan) {
+      const value = parseFloat(valueSpan.textContent) || 97.33
+      handleDecimalControls(cell, value)
+    }
+  })
+
+  // Add global decimal controls functionality
+  const globalDecreaseBtn = document.getElementById('globalDecreaseDecimal')
+  const globalIncreaseBtn = document.getElementById('globalIncreaseDecimal')
+  const globalDecimalValue = document.getElementById('globalDecimalValue')
+
+  if (globalDecreaseBtn && globalIncreaseBtn && globalDecimalValue) {
+    let currentGlobalDecimals = 2
+
+    globalDecreaseBtn.addEventListener('click', () => {
+      if (currentGlobalDecimals > 2) {
+        currentGlobalDecimals--
+        globalDecimalValue.textContent = currentGlobalDecimals
+        updateGlobalDecimalPlaces(currentGlobalDecimals)
+      }
+    })
+
+    globalIncreaseBtn.addEventListener('click', () => {
+      if (currentGlobalDecimals < 6) {
+        currentGlobalDecimals++
+        globalDecimalValue.textContent = currentGlobalDecimals
+        updateGlobalDecimalPlaces(currentGlobalDecimals)
+      }
+    })
+  }
 })
