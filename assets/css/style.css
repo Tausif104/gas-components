@@ -840,11 +840,15 @@ button.gas-composition-add-btn {
 }
 
 .full-page-wrapper {
-  background-color: #fff;
+  background-color: var(--bg-primary);
   margin: 100px;
   border-radius: 15px;
   overflow: hidden;
   padding: 50px;
+}
+
+.navbar {
+  background-color: var(--bg-primary) !important;
 }
 
 body {

@@ -478,7 +478,7 @@ document.addEventListener('DOMContentLoaded', function () {
   )
   if (gasCompositionTableBody) {
     new Sortable(gasCompositionTableBody, {
-      handle: 'td:first-child img', // Only drag by the icon
+      handle: 'td:first-child img, td:nth-child(2)', // Allow dragging by drag icon or gas name cell
       animation: 150,
       ghostClass: 'dragging',
       dragClass: 'dragging',
