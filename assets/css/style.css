@@ -218,7 +218,7 @@ td.cross-icon {
 }
 
 .catious {
-  max-height: 220px;
+  max-height: 204px;
   overflow-y: scroll;
 }
 
@@ -858,6 +858,7 @@ body {
 
 .selected-components-table span {
   display: inline-block;
+  margin-right: 10px;
 }
 
 .selected-components-table table tbody tr {
