@@ -168,3 +168,22 @@ select.form-select {
   --primary-color: #0d6efd;
   --navbar-toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(248, 249, 250, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
+
+[data-theme='dark'] .select-gas-components table tbody tr:hover {
+  background-color: rgba(
+    34,
+    193,
+    169,
+    0.12
+  ) !important; /* subtle teal highlight for dark */
+}
+[data-theme='dark'] .select-gas-components table tbody tr.selected,
+[data-theme='dark'] .select-gas-components table tbody tr.selected td {
+  background-color: rgba(
+    34,
+    193,
+    169,
+    0.097
+  ) !important; /* stronger teal for selected */
+  color: #22c1a9 !important;
+}

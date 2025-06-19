@@ -257,7 +257,6 @@ section.inlet-conditions-section > table {
 .gas-composition-table td {
   padding: 7px 7px 7px 7px;
   border: 1px solid #8f8f8f;
-  width: 200px;
   text-align: center;
 }
 
@@ -276,7 +275,7 @@ section.inlet-conditions-section .inlet-conditions tr th:first-child {
 }
 
 section.inlet-conditions-section .inlet-conditions tr td:nth-child(2) {
-  width: 350px;
+  min-width: 350px;
   text-align: left;
 }
 
@@ -621,7 +620,8 @@ tr.gas-composition-last-row td > * {
 }
 
 button.gas-composition-close-btn,
-button.gas-composition-add-btn {
+button.gas-composition-add-btn,
+button.gas-composition-refresh-btn {
   padding: 0;
   border: none;
 }
@@ -875,7 +875,7 @@ body {
 
 .select-gas-components table td:first-child,
 .select-gas-components table th:first-child {
-  width: 50px;
+  width: 92px;
   padding: 0 20px;
 }
 
@@ -963,4 +963,18 @@ button.delete-column-btn {
   );
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a3a3a",endColorstr="#111928",GradientType=1);
   background-attachment: fixed !important;
+}
+
+.inlet-conditions {
+  min-width: 1313px;
+  overflow-x: scroll;
+}
+
+.gas-composition-table td,
+.inlet-conditions td {
+  min-width: 200px;
+}
+
+section.inlet-conditions-section .inlet-conditions tr td:first-child {
+  min-width: 48px;
 }

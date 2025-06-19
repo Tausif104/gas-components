@@ -82,13 +82,35 @@ function createGasCompositionRow(data) {
   const row = document.createElement('tr')
   row.id = `composition-${data.componentId}`
   row.dataset.componentId = data.componentId
+
+  // Get the number of case columns (excluding drag, description, and unit columns)
+  const gasCompositionTable = document.querySelector(
+    '.gas-composition-table table'
+  )
+  let numCaseColumns = 0
+  if (gasCompositionTable) {
+    const headerRow = gasCompositionTable.querySelector('thead tr')
+    if (headerRow) {
+      // Exclude the first 3 columns (drag, description, unit)
+      numCaseColumns = headerRow.children.length - 3
+      if (numCaseColumns < 1) numCaseColumns = 1 // fallback to at least 1
+    } else {
+      numCaseColumns = 3 // fallback
+    }
+  } else {
+    numCaseColumns = 3 // fallback
+  }
+
+  let inputCells = ''
+  for (let i = 0; i < numCaseColumns; i++) {
+    inputCells += `<td><input type="number" placeholder="Enter Value" step="0.001" min="0"></td>`
+  }
+
   row.innerHTML = `
     <td><img src="assets/images/drag-icon.png" alt=""></td>
     <td>${data.description}</td>
     <td>mol %</td>
-    <td><input type="number" placeholder="Enter Value" step="0.001" min="0"></td>
-    <td><input type="number" placeholder="Enter Value" step="0.001" min="0"></td>
-    <td><input type="number" placeholder="Enter Value" step="0.001" min="0"></td>
+    ${inputCells}
   `
 
   // Add input event listeners to calculate totals
@@ -261,7 +283,8 @@ function handleDecimalControls(decimalCell, initialValue = 97.33) {
 
   let currentValue = parseFloat(initialValue)
   let decimalPlaces = 2 // Start with 2 decimal places
-  const maxDecimalPlaces = 6 // Maximum number of decimal places
+  const maxDecimalPlaces = 4 // Maximum number of decimal places
+  const minDecimalPlaces = 0 // Minimum number of decimal places
 
   function updateDisplay() {
     // Get the base value with 2 decimal places
@@ -270,9 +293,12 @@ function handleDecimalControls(decimalCell, initialValue = 97.33) {
     const repeatingPart = baseValue.split('.')[1]
 
     // Create the number with desired decimal places
-    let displayValue = baseValue.split('.')[0] + '.' // Whole number part
-    for (let i = 0; i < decimalPlaces; i++) {
-      displayValue += repeatingPart[i % 2] // Repeat the last two digits
+    let displayValue = baseValue.split('.')[0]
+    if (decimalPlaces > 0) {
+      displayValue += '.'
+      for (let i = 0; i < decimalPlaces; i++) {
+        displayValue += repeatingPart[i % 2] // Repeat the last two digits
+      }
     }
 
     valueSpan.textContent = displayValue
@@ -280,13 +306,15 @@ function handleDecimalControls(decimalCell, initialValue = 97.33) {
 
   // Store the update function on the cell for global updates
   decimalCell.updateDecimalPlaces = function (newDecimalPlaces) {
-    decimalPlaces = newDecimalPlaces
+    decimalPlaces = Math.max(
+      minDecimalPlaces,
+      Math.min(maxDecimalPlaces, newDecimalPlaces)
+    )
     updateDisplay()
   }
 
   decreaseBtn.addEventListener('click', () => {
-    if (decimalPlaces > 2) {
-      // Don't go below 2 decimal places
+    if (decimalPlaces > minDecimalPlaces) {
       decimalPlaces--
       updateDisplay()
       // Update global decimal value display
@@ -470,6 +498,115 @@ function addNewColumn() {
   }
 }
 
+// Function to relabel case columns sequentially
+function relabelCaseColumns() {
+  // Project Properties Table
+  const projectPropertiesTable = document.querySelector(
+    '.project-properties-table table'
+  )
+  if (projectPropertiesTable) {
+    const headerRow = projectPropertiesTable.querySelector('thead tr')
+    if (headerRow) {
+      let caseIndex = 1
+      Array.from(headerRow.children).forEach((th) => {
+        if (th.classList.contains('case-column')) {
+          th.innerHTML = `
+            <span>
+              Case ${caseIndex}
+              <button class="delete-column-btn"><i class="fas fa-times"></i></button>
+            </span>
+          `
+          caseIndex++
+        }
+      })
+    }
+  }
+
+  // Gas Composition Table
+  const gasCompositionTable = document.querySelector(
+    '.gas-composition-table table'
+  )
+  if (gasCompositionTable) {
+    const headerRow = gasCompositionTable.querySelector('thead tr')
+    if (headerRow) {
+      // Exclude the first 3 columns (drag, description, unit)
+      for (
+        let i = 3, caseIndex = 1;
+        i < headerRow.children.length;
+        i++, caseIndex++
+      ) {
+        headerRow.children[i].innerHTML = '' // You can add a label if needed
+      }
+    }
+  }
+
+  // Calculated Properties Table
+  const calculatedPropertiesTable = document.querySelector(
+    '.calculated-properties-table table'
+  )
+  if (calculatedPropertiesTable) {
+    const headerRow = calculatedPropertiesTable.querySelector('thead tr')
+    if (headerRow) {
+      let caseIndex = 1
+      Array.from(headerRow.children).forEach((th) => {
+        if (th.classList.contains('case-column')) {
+          th.innerHTML = `
+            <span>
+              Case ${caseIndex}
+              <button class="delete-column-btn"><i class="fas fa-times"></i></button>
+            </span>
+          `
+          caseIndex++
+        }
+      })
+    }
+  }
+
+  // Re-attach delete button event listeners after relabeling
+  const deleteButtons = document.querySelectorAll('.delete-column-btn')
+  deleteButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation()
+      const headerCell = btn.closest('th')
+      // Only allow deletion if it's not Case 1
+      if (!headerCell.classList.contains('case-one')) {
+        const columnIndex = Array.from(
+          headerCell.parentElement.children
+        ).indexOf(headerCell)
+        // Get all tables
+        const projectPropertiesTable = document.querySelector(
+          '.project-properties-table table'
+        )
+        const gasCompositionTable = document.querySelector(
+          '.gas-composition-table table'
+        )
+        const calculatedPropertiesTable = document.querySelector(
+          '.calculated-properties-table table'
+        )
+        if (
+          projectPropertiesTable &&
+          gasCompositionTable &&
+          calculatedPropertiesTable
+        ) {
+          // Remove column from all tables
+          projectPropertiesTable.querySelectorAll('tr').forEach((row) => {
+            const cell = row.cells[columnIndex]
+            if (cell) cell.remove()
+          })
+          gasCompositionTable.querySelectorAll('tr').forEach((row) => {
+            const cell = row.cells[columnIndex]
+            if (cell) cell.remove()
+          })
+          calculatedPropertiesTable.querySelectorAll('tr').forEach((row) => {
+            const cell = row.cells[columnIndex]
+            if (cell) cell.remove()
+          })
+        }
+      }
+    })
+  })
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', function () {
   // Initialize drag and drop for gas composition table
@@ -600,10 +737,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Skip if header doesn't have text content
     if (!header.textContent.trim()) return
 
-    // Add cursor pointer and sort icon (except for ID column)
+    // Add cursor pointer and sort icon (now for all columns including ID)
     header.style.cursor = 'pointer'
-    if (index !== 0 && !header.querySelector('i')) {
-      // Skip icon for ID column (index 0)
+    if (!header.querySelector('i')) {
       const sortIcon = document.createElement('i')
       sortIcon.className = 'fas fa-sort ms-1'
       header.appendChild(sortIcon)
@@ -703,9 +839,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (globalDecreaseBtn && globalIncreaseBtn && globalDecimalValue) {
     let currentGlobalDecimals = 2
+    const minDecimalPlaces = 0
+    const maxDecimalPlaces = 4
 
     globalDecreaseBtn.addEventListener('click', () => {
-      if (currentGlobalDecimals > 2) {
+      if (currentGlobalDecimals > minDecimalPlaces) {
         currentGlobalDecimals--
         globalDecimalValue.textContent = currentGlobalDecimals
         updateGlobalDecimalPlaces(currentGlobalDecimals)
@@ -713,11 +851,17 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     globalIncreaseBtn.addEventListener('click', () => {
-      if (currentGlobalDecimals < 6) {
+      if (currentGlobalDecimals < maxDecimalPlaces) {
         currentGlobalDecimals++
         globalDecimalValue.textContent = currentGlobalDecimals
         updateGlobalDecimalPlaces(currentGlobalDecimals)
       }
     })
+  }
+
+  // Add refresh button handler
+  const refreshBtn = document.querySelector('.gas-composition-refresh-btn')
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', relabelCaseColumns)
   }
 })
