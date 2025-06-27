@@ -19,7 +19,6 @@ h4 {
   color: #494949 !important;
   font-size: 18px;
   margin-bottom: 8px !important;
-  padding-left: 15px;
   margin-top: 9px;
 }
 
@@ -33,10 +32,6 @@ h4 {
   font-weight: 500;
   color: #22c1a9;
   font-size: 18px;
-}
-
-.select-gas-components thead th:first-child {
-  color: #333 !important;
 }
 
 .select-gas-components table {
@@ -202,9 +197,7 @@ td.cross-icon {
 
 .catious {
   border: 1px solid #8f8f8f;
-  border-radius: 3px;
   padding: 25px 10px;
-  margin-top: 20px;
 }
 
 .catious ul {
@@ -218,7 +211,7 @@ td.cross-icon {
 }
 
 .catious {
-  max-height: 204px;
+  max-height: 201px;
   overflow-y: scroll;
 }
 
@@ -732,7 +725,7 @@ th.case-column {
 }
 
 h4.heading {
-  font-size: 28px;
+  font-size: 22px;
   margin-bottom: 12px !important;
   display: inline-block;
 }
@@ -743,7 +736,7 @@ h4.heading {
 
 .calculated-header h4 {
   font-size: 18px;
-  padding-left: 62px;
+  padding-left: 48px;
 }
 
 td input[type='text']:focus::placeholder,
@@ -817,7 +810,7 @@ button.gas-composition-add-btn {
 }
 
 .selected-components-table table tbody tr:hover {
-  background-color: rgba(34, 193, 169, 0.05);
+  background-color: rgba(245, 245, 245);
 }
 
 .selected-components-table table tbody tr.selected {
@@ -977,4 +970,21 @@ button.delete-column-btn {
 
 section.inlet-conditions-section .inlet-conditions tr td:first-child {
   min-width: 48px;
+}
+
+.selected-components-table table tbody tr:last-child {
+  border-bottom: none;
+}
+
+select.select-calculated-methods {
+  border-radius: 3px !important;
+  font-weight: bold;
+}
+
+.decimal-controls-wrapper span {
+  font-weight: bold;
+}
+
+.decimal-controls-wrapper {
+  border-radius: 3px;
 }
