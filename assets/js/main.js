@@ -287,20 +287,9 @@ function handleDecimalControls(decimalCell, initialValue = 97.33) {
   const minDecimalPlaces = 0 // Minimum number of decimal places
 
   function updateDisplay() {
-    // Get the base value with 2 decimal places
-    const baseValue = currentValue.toFixed(2)
-    // Get the repeating part (last two digits)
-    const repeatingPart = baseValue.split('.')[1]
-
-    // Create the number with desired decimal places
-    let displayValue = baseValue.split('.')[0]
-    if (decimalPlaces > 0) {
-      displayValue += '.'
-      for (let i = 0; i < decimalPlaces; i++) {
-        displayValue += repeatingPart[i % 2] // Repeat the last two digits
-      }
-    }
-
+    // Use toFixed() to round the actual value to the specified decimal places
+    // This mimics Excel's decimal function behavior
+    const displayValue = currentValue.toFixed(decimalPlaces)
     valueSpan.textContent = displayValue
   }
 
@@ -394,7 +383,11 @@ function addNewColumn() {
     const firstInput = row.querySelector('input')
     if (firstInput) {
       const inputType = firstInput.type
-      if (inputType === 'radio' || inputType === 'checkbox') {
+      if (inputType === 'radio') {
+        // For radio buttons, add the same name attribute to maintain single-select behavior
+        const name = firstInput.name || 'guarantee-point'
+        newCell.innerHTML = `<input type="${inputType}" name="${name}">`
+      } else if (inputType === 'checkbox') {
         newCell.innerHTML = `<input type="${inputType}">`
       } else {
         newCell.innerHTML = `<input type="${inputType}" placeholder="Enter Value">`

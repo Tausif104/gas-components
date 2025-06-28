@@ -79,4 +79,13 @@
   .select-gas-components table th:first-child {
     min-width: 48px !important;
   }
+
+  .full-page-wrapper {
+    padding: 0;
+    margin: 0;
+  }
+
+  body.main-body {
+    background: none;
+  }
 }

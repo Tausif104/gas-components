@@ -293,19 +293,6 @@
                               <button class="delete-column-btn"><i class="fas fa-times"></i></button>
                             </span>
                           </th>
-                          <th class="case-column">
-                            <span>
-                              Case 2
-                              <button class="delete-column-btn"><i class="fas fa-times"></i></button>
-                            </span>
-                          </th>
-                          <th class="case-column">
-                            <span>
-                              Case 3
-                              <button class="delete-column-btn"><i class="fas fa-times"></i></button>
-                            </span>
-                          </th>
-
                         </tr>
                       </thead>
 
@@ -314,8 +301,6 @@
                           <td></td>
                           <td>Description</td>
                           <td></td>
-                          <td><input type="text" placeholder="Enter Value"></td>
-                          <td><input type="text" placeholder="Enter Value"></td>
                           <td><input type="text" placeholder="Enter Value"></td>
                         </tr>
                         <tr>
@@ -327,8 +312,6 @@
                               <option value="mbara">mbara</option>
                             </select></td>
                           <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
                         </tr>
                         <tr>
                           <td>T<sub>a</sub></td>
@@ -338,23 +321,17 @@
                               <option value="mbara">°F</option>
                             </select></td>
                           <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
                         </tr>
                         <tr>
                           <td></td>
                           <td>Guarantee point</td>
                           <td></td>
-                          <td><input type="radio"></td>
-                          <td><input type="radio"></td>
-                          <td><input type="radio"></td>
+                          <td><input type="radio" name="guarantee-point"></td>
                         </tr>
                         <tr>
                           <td></td>
                           <td>Suppress</td>
                           <td></td>
-                          <td><input type="checkbox"></td>
-                          <td><input type="checkbox"></td>
                           <td><input type="checkbox"></td>
                         </tr>
                         <tr>
@@ -366,8 +343,6 @@
                               <option value="barg">barg</option>
                             </select></td>
                           <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
                         </tr>
                         <tr>
                           <td>T<sub>1</sub></td>
@@ -376,8 +351,6 @@
                               <option value="mbara">°C</option>
                               <option value="mbara">°F</option>
                             </select></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
                           <td><input type="number" placeholder="Enter Value"></td>
                         </tr>
                         <tr>
@@ -391,8 +364,6 @@
                               <option value="mbara">kg/h</option>
                               <option value="mbara">kg/h</option>
                             </select></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
                           <td><input type="number" placeholder="Enter Value"></td>
                         </tr>
                       </tbody>
@@ -415,8 +386,6 @@
                               <option value="mole %">mole %</option>
                             </select></th>
                           <th></th>
-                          <th></th>
-                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -425,15 +394,11 @@
                           <td>Hydrogen</td>
                           <td>mol %</td>
                           <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
                         </tr>
                         <tr>
                           <td><img src="assets/images/drag-icon.png" alt=""></td>
                           <td>Methane</td>
                           <td>mol %</td>
-                          <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
                           <td><input type="number" placeholder="Enter Value"></td>
                         </tr>
                         <tr>
@@ -441,15 +406,11 @@
                           <td>Hydrogen sulfide</td>
                           <td>mol %</td>
                           <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
                         </tr>
                         <tr>
                           <td><img src="assets/images/drag-icon.png" alt=""></td>
                           <td>Oxygen</td>
                           <td>mol %</td>
-                          <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
                           <td><input type="number" placeholder="Enter Value"></td>
                         </tr>
                         <tr>
@@ -457,24 +418,20 @@
                           <td>Nitrogen</td>
                           <td>mol %</td>
                           <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
-                          <td><input type="number" placeholder="Enter Value"></td>
                         </tr>
                         <tr class="gas-composition-total-row">
                           <td></td>
                           <td>Total</td>
                           <td>mol %</td>
                           <td>92,666</td>
-                          <td>100</td>
-                          <td>100</td>
                         </tr>
                       </tbody>
                     </table>
                     <div class="d-flex align-items-center gap-3 mt-4 gc-buttons-wrapper">
                       <button>Assume composition as 100% <input type="checkbox"></button>
                       <button>Flash <img src="assets/images/flash.png" alt=""></button>
-                      <button class="gas-composition-add-btn"><i class="fas fa-plus"></i></button>
-                      <button class="gas-composition-refresh-btn"><i class="fas fa-refresh"></i></button>
+                      <button class="gas-composition-add-btn">Add New Case</button>
+                      <button class="gas-composition-refresh-btn">Renumber cases</button>
                     </div>
                   </div>
                 </div>
@@ -506,24 +463,6 @@
                               </div>
                             </div>
                           </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
                         </tr>
                         <tr>
                           <td>Q<sub>1</sub></td>
@@ -534,24 +473,6 @@
                               <option value="Am3/h">Am3/h</option>
                               <option value="Am3/h">Am3/h</option>
                             </select>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
                           </td>
                           <td class="decimal-value">
                             <div class="position-relative">
@@ -582,24 +503,6 @@
                               </div>
                             </div>
                           </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
                         </tr>
                         <tr>
                           <td>y<sub>i</sub></td>
@@ -614,47 +517,11 @@
                               </div>
                             </div>
                           </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
                         </tr>
                         <tr>
                           <td>φ</td>
                           <td>Relative humidity</td>
                           <td>%</td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
                           <td class="decimal-value">
                             <div class="position-relative">
                               <span class="value">97.33</span>
@@ -684,24 +551,6 @@
                               </div>
                             </div>
                           </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
                         </tr>
                         <tr>
                           <td>C<sub>v</sub></td>
@@ -720,47 +569,11 @@
                               </div>
                             </div>
                           </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
                         </tr>
                         <tr>
                           <td>κ</td>
                           <td>Specific heat ratio</td>
                           <td></td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
                           <td class="decimal-value">
                             <div class="position-relative">
                               <span class="value">97.33</span>
@@ -788,47 +601,11 @@
                               </div>
                             </div>
                           </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
                         </tr>
                         <tr>
                           <td>SG</td>
                           <td>Specific gravity</td>
                           <td></td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
                           <td class="decimal-value">
                             <div class="position-relative">
                               <span class="value">97.33</span>
@@ -849,25 +626,7 @@
                             </select></td>
                           <td class="decimal-value">
                             <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
+                              <span class="value">97.56</span>
                               <div class="decimal-controls">
                                 <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
                                 <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
@@ -878,29 +637,7 @@
                         <tr>
                           <td>Z</td>
                           <td>Compressibility factor</td>
-                          <td><select name="" id="">
-                              <option value="kg/m3">kg/m3</option>
-                              <option value="kg/m3">kg/m3</option>
-                              <option value="kg/m3">kg/m3</option>
-                            </select></td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
+                          <td></td>
                           <td class="decimal-value">
                             <div class="position-relative">
                               <span class="value">97.33</span>
@@ -928,24 +665,6 @@
                               </div>
                             </div>
                           </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
                         </tr>
                         <tr>
                           <td>Td</td>
@@ -954,24 +673,6 @@
                               <option value="mbara">°C</option>
                               <option value="mbara">°F</option>
                             </select></td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="decimal-value">
-                            <div class="position-relative">
-                              <span class="value">97.33</span>
-                              <div class="decimal-controls">
-                                <button class="decrease-decimal"><i class="fas fa-angle-left"></i></button>
-                                <button class="increase-decimal"><i class="fas fa-angle-right"></i></button>
-                              </div>
-                            </div>
-                          </td>
                           <td class="decimal-value">
                             <div class="position-relative">
                               <span class="value">97.33</span>

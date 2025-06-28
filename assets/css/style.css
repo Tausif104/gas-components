@@ -612,9 +612,7 @@ tr.gas-composition-last-row td > * {
   margin: 0 auto;
 }
 
-button.gas-composition-close-btn,
-button.gas-composition-add-btn,
-button.gas-composition-refresh-btn {
+button.gas-composition-close-btn {
   padding: 0;
   border: none;
 }
@@ -677,19 +675,17 @@ th.case-column {
 
 /* Drag and drop styles */
 .gas-composition-table tbody tr:not(.gas-composition-total-row) {
-  cursor: grab;
   user-select: none;
   transition: background-color 0.2s ease;
 }
 
 .gas-composition-table tbody tr:not(.gas-composition-total-row):active {
-  cursor: grabbing;
+  /* Remove grabbing cursor from entire row */
 }
 
 .gas-composition-table tbody tr.dragging {
   opacity: 0.5;
   background-color: #f8f9fa;
-  cursor: grabbing;
 }
 
 .gas-composition-table tbody tr:not(.gas-composition-total-row):hover {
@@ -708,6 +704,7 @@ th.case-column {
   pointer-events: auto;
 }
 
+/* Apply grab cursor only to drag icon and title column */
 .gas-composition-table
   tbody
   tr:not(.gas-composition-total-row)
@@ -721,6 +718,27 @@ th.case-column {
   tr:not(.gas-composition-total-row)
   td:first-child
   img:active {
+  cursor: grabbing;
+}
+
+/* Apply grab cursor to the title column (second column) */
+.gas-composition-table
+  tbody
+  tr:not(.gas-composition-total-row)
+  td:nth-child(2) {
+  cursor: grab;
+}
+
+.gas-composition-table
+  tbody
+  tr:not(.gas-composition-total-row)
+  td:nth-child(2):active {
+  cursor: grabbing;
+}
+
+/* Apply grabbing cursor to handle elements when row is being dragged */
+.gas-composition-table tbody tr.dragging td:first-child img,
+.gas-composition-table tbody tr.dragging td:nth-child(2) {
   cursor: grabbing;
 }
 
@@ -750,10 +768,6 @@ button img {
 
 .gc-buttons-wrapper {
   margin-left: 47px;
-}
-
-button.gas-composition-add-btn {
-  margin-left: 12.5%;
 }
 
 .decimal-value i {
