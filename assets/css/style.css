@@ -49,7 +49,7 @@ h4 {
 
 .select-gas-components table th,
 .select-gas-components table td {
-  padding: 6px 0;
+  padding: 9.25px 0;
 }
 
 button {
@@ -207,7 +207,7 @@ td.cross-icon {
 .select-gas-components > div {
   max-height: 300px;
   overflow-y: scroll;
-  height: 258px;
+  height: 256px;
 }
 
 .catious {
@@ -793,9 +793,11 @@ button img {
 }
 
 .selected-components-table > .table-responsive {
-  height: 261px;
+  height: 260px;
 }
-
+.gas-composition-total-row td:nth-child(n + 4) {
+  min-width: 216px;
+}
 .select-gas-components-header {
   height: auto !important;
   max-height: auto !important;
@@ -986,8 +988,13 @@ section.inlet-conditions-section .inlet-conditions tr td:first-child {
   min-width: 48px;
 }
 
-.selected-components-table table tbody tr:last-child {
+/* .selected-components-table table tbody tr:last-child {
   border-bottom: none;
+} */
+
+/* Override: if there are ≥ 8 rows, add border to last row */
+.selected-components-table table tbody tr:nth-last-child(1):nth-child(n + 8) {
+  border-bottom: 1px solid #ccc;
 }
 
 select.select-calculated-methods {
@@ -1005,7 +1012,6 @@ select.select-calculated-methods {
 
 .project-properties-table {
   overflow-x: auto;
-  width: 100%;
   position: relative;
 }
 
@@ -1013,7 +1019,6 @@ select.select-calculated-methods {
   border-collapse: separate;
   border-spacing: 0;
   width: max-content;
-  min-width: 100%;
 }
 
 .project-properties-table th,
@@ -1022,7 +1027,6 @@ select.select-calculated-methods {
   white-space: nowrap;
 }
 
-/* Make first and second columns sticky */
 .project-properties-table th:first-child,
 .project-properties-table th:nth-child(2),
 .project-properties-table th:nth-child(3),
@@ -1035,7 +1039,6 @@ select.select-calculated-methods {
   z-index: 2;
 }
 
-/* Second column needs higher z-index than first if overlapping */
 .project-properties-table th:nth-child(2),
 .project-properties-table td:nth-child(2) {
   left: 48px;
@@ -1069,4 +1072,11 @@ select.select-calculated-methods {
 }
 .project-properties-table {
   padding-bottom: 5px;
+}
+.calculated-properties-table .decimal-value {
+  min-width: 216px;
+}
+.gas-composition-table td,
+.calculated-properties-table td {
+  padding: 9px 8px;
 }
