@@ -1,30 +1,69 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const themeSelect = document.querySelector('.theme-select')
-  const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)')
+document.addEventListener("DOMContentLoaded", function () {
+  const themeSelect = document.querySelector(".theme-select");
+  const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
   // Function to set theme
   function setTheme(theme) {
-    if (theme === 'system') {
-      theme = prefersDarkScheme.matches ? 'dark' : 'light'
+    if (theme === "system") {
+      theme = prefersDarkScheme.matches ? "dark" : "light";
     }
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
-    themeSelect.value = theme
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+    themeSelect.value = theme;
   }
 
   // Initialize theme
-  const savedTheme = localStorage.getItem('theme') || 'system'
-  setTheme(savedTheme)
+  const savedTheme = localStorage.getItem("theme") || "system";
+  setTheme(savedTheme);
 
   // Handle theme selection change
-  themeSelect.addEventListener('change', function () {
-    setTheme(this.value)
-  })
+  themeSelect.addEventListener("change", function () {
+    setTheme(this.value);
+  });
 
   // Listen for system theme changes
-  prefersDarkScheme.addEventListener('change', (e) => {
-    if (localStorage.getItem('theme') === 'system') {
-      setTheme('system')
+  prefersDarkScheme.addEventListener("change", (e) => {
+    if (localStorage.getItem("theme") === "system") {
+      setTheme("system");
     }
-  })
-})
+  });
+});
+
+const tables = [
+  document.querySelector(".project-properties-table"),
+  document.querySelector(".calculated-properties-table"),
+  document.querySelector(".gas-composition-table"),
+];
+
+// Mouse wheel horizontal scroll sync
+tables.forEach((table, index) => {
+  table.addEventListener("wheel", (e) => {
+    if (e.deltaY !== 0) {
+      e.preventDefault();
+      table.scrollLeft += e.deltaY;
+      syncAllScroll(table);
+    }
+  });
+
+  // Scrollbar sync
+  table.addEventListener("scroll", () => {
+    syncAllScroll(table);
+  });
+});
+
+// Sync scrollLeft across all tables except the source
+function syncAllScroll(sourceTable) {
+  const scrollLeft = sourceTable.scrollLeft;
+  tables.forEach((t) => {
+    if (t !== sourceTable) {
+      t.scrollLeft = scrollLeft;
+    }
+  });
+}
+
+function scrollTable(amount) {
+  const wrapper = document.querySelector(".project-properties-table");
+  if (wrapper) {
+    wrapper.scrollLeft += amount;
+  }
+}

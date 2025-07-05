@@ -227,9 +227,13 @@ h4 span {
 }
 
 .inlet-conditions {
-  padding: 40px 80px;
+  padding: 40px 0px 40px 30px;
   border: 1px solid #8f8f8f;
   border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
 }
 
 section.inlet-conditions-section {
@@ -975,8 +979,8 @@ button.delete-column-btn {
 }
 
 .inlet-conditions {
-  min-width: 1313px;
-  overflow-x: scroll;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .gas-composition-table td,
@@ -1010,19 +1014,27 @@ select.select-calculated-methods {
   border-radius: 3px;
 }
 
-.project-properties-table {
+.project-properties-table,
+.calculated-properties-table,
+.gas-composition-table {
   overflow-x: auto;
   position: relative;
 }
 
-.project-properties-table .table-full-width table {
+.project-properties-table .table-full-width table,
+.calculated-properties-table .table-full-width table,
+.gas-composition-table .table-full-width table {
   border-collapse: separate;
   border-spacing: 0;
   width: max-content;
 }
 
 .project-properties-table th,
-.project-properties-table td {
+.project-properties-table td,
+.calculated-properties-table th,
+.calculated-properties-table td,
+.gas-composition-table th,
+.gas-composition-table td {
   padding: 8px;
   white-space: nowrap;
 }
@@ -1032,7 +1044,19 @@ select.select-calculated-methods {
 .project-properties-table th:nth-child(3),
 .project-properties-table td:first-child,
 .project-properties-table td:nth-child(2),
-.project-properties-table td:nth-child(3) {
+.project-properties-table td:nth-child(3),
+.calculated-properties-table th:first-child,
+.calculated-properties-table th:nth-child(2),
+.calculated-properties-table th:nth-child(3),
+.calculated-properties-table td:first-child,
+.calculated-properties-table td:nth-child(2),
+.calculated-properties-table td:nth-child(3),
+.gas-composition-table th:first-child,
+.gas-composition-table th:nth-child(2),
+.gas-composition-table th:nth-child(3),
+.gas-composition-table td:first-child,
+.gas-composition-table td:nth-child(2),
+.gas-composition-table td:nth-child(3) {
   position: sticky;
   left: 0;
   background-color: #fff;
@@ -1040,37 +1064,59 @@ select.select-calculated-methods {
 }
 
 .project-properties-table th:nth-child(2),
-.project-properties-table td:nth-child(2) {
+.project-properties-table td:nth-child(2),
+.calculated-properties-table th:nth-child(2),
+.calculated-properties-table td:nth-child(2),
+.gas-composition-table th:nth-child(2),
+.gas-composition-table td:nth-child(2) {
   left: 48px;
   z-index: 3;
 }
 .project-properties-table th:nth-child(3),
-.project-properties-table td:nth-child(3) {
+.project-properties-table td:nth-child(3),
+.calculated-properties-table th:nth-child(3),
+.calculated-properties-table td:nth-child(3),
+.gas-composition-table th:nth-child(3),
+.gas-composition-table td:nth-child(3) {
   left: 398px;
   z-index: 3;
 }
 
 .project-properties-table th:not(:nth-child(2)),
-.project-properties-table td:not(:nth-child(2)) {
+.project-properties-table td:not(:nth-child(2)),
+.calculated-properties-table th:not(:nth-child(2)),
+.calculated-properties-table td:not(:nth-child(2)),
+.gas-composition-table th:not(:nth-child(2)),
+.gas-composition-table td:not(:nth-child(2)) {
   border-left: 0;
 }
 .project-properties-table tr:not(:last-child) th,
-.project-properties-table tr:not(:last-child) td {
+.project-properties-table tr:not(:last-child) td,
+.calculated-properties-table tr:not(:last-child) th,
+.calculated-properties-table tr:not(:last-child) td,
+.gas-composition-table tr:not(:last-child) th,
+.gas-composition-table tr:not(:last-child) td {
   border-bottom: 0;
 }
-.project-properties-table thead tr th:nth-child(2) {
+.project-properties-table thead tr th:nth-child(2),
+.calculated-properties-table thead tr th:nth-child(2) {
   border: 1px solid #8f8f8f;
   border-bottom: 0;
 }
-.project-properties-table thead tr th:nth-child(3) {
+.project-properties-table thead tr th:nth-child(3),
+.calculated-properties-table thead tr th:nth-child(3),
+.gas-composition-table thead tr th:nth-child(2) {
   border: 1px solid #8f8f8f;
   border-bottom: 0;
   border-left: 0;
 }
-.project-properties-table thead tr th {
+.project-properties-table thead tr th,
+.calculated-properties-table thead tr th {
   border-bottom: 0;
 }
-.project-properties-table {
+.project-properties-table,
+.calculated-properties-table,
+.gas-composition-table {
   padding-bottom: 5px;
 }
 .calculated-properties-table .decimal-value {
@@ -1079,4 +1125,11 @@ select.select-calculated-methods {
 .gas-composition-table td,
 .calculated-properties-table td {
   padding: 9px 8px;
+}
+.gas-composition-table thead tr th:nth-child(2) {
+  border-top: 0;
+}
+.project-properties-table,
+.gas-composition-table {
+  scrollbar-width: none;
 }
