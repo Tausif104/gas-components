@@ -11,6 +11,10 @@ body {
   max-width: 2060px !important;
 }
 
+.gy-20 {
+  --bs-gutter-y: 20px;
+}
+
 section.gas-components-section {
   margin-top: 50px;
 }

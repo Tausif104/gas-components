@@ -88,4 +88,30 @@
   body.main-body {
     background: none;
   }
+  .gas-composition-table td,
+  .inlet-conditions td {
+    min-width: 100px;
+  }
+  section.inlet-conditions-section .inlet-conditions tr td:nth-child(2) {
+    min-width: 200px;
+    text-align: left;
+    max-width: 200px;
+  }
+  section.inlet-conditions-section th:nth-child(2) {
+    text-align: left;
+    font-size: 18px;
+    width: 200px;
+  }
+  .project-properties-table th:nth-child(3),
+  .project-properties-table td:nth-child(3),
+  .calculated-properties-table th:nth-child(3),
+  .calculated-properties-table td:nth-child(3),
+  .gas-composition-table th:nth-child(3),
+  .gas-composition-table td:nth-child(3) {
+    left: 185px;
+    z-index: 3;
+  }
+  .inlet-conditions > .row.w-100 {
+    flex-direction: column-reverse;
+  }
 }
