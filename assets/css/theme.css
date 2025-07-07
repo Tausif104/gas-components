@@ -7,7 +7,7 @@
   --scrollbar-thumb-hover: #555;
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   /* Dark theme - only background colors */
   --bg-primary: #1a1a1a;
   --bg-secondary: #2d2d2d;
@@ -22,34 +22,34 @@
 }
 
 /* Apply theme variables - only for dark mode */
-[data-theme='dark'] body {
+[data-theme="dark"] body {
   background-color: var(--bg-primary);
 }
 
-[data-theme='dark'] .gas-components-section,
-[data-theme='dark'] .inlet-conditions-section {
+[data-theme="dark"] .gas-components-section,
+[data-theme="dark"] .inlet-conditions-section {
   background-color: var(--bg-primary);
 }
 
-[data-theme='dark'] .select-gas-components,
-[data-theme='dark'] .selected-components,
-[data-theme='dark'] .gas-characteristics,
-[data-theme='dark'] .inlet-conditions-section-wrapper {
+[data-theme="dark"] .select-gas-components,
+[data-theme="dark"] .selected-components,
+[data-theme="dark"] .gas-characteristics,
+[data-theme="dark"] .inlet-conditions-section-wrapper {
   background-color: var(--bg-transparent);
 }
 
 /* Dark mode text and select styles */
-[data-theme='dark'] {
+[data-theme="dark"] {
   color: var(--text-color);
 }
 
-[data-theme='dark'] select {
+[data-theme="dark"] select {
   background-color: var(--bg-transparent) !important;
   border-color: var(--select-border) !important;
   color: var(--theme-color) !important;
 }
 
-[data-theme='dark'] select option {
+[data-theme="dark"] select option {
   background-color: var(--select-bg);
   color: var(--text-color);
 }
@@ -112,16 +112,16 @@
 }
 
 /* Light mode icon styles */
-[data-theme='light'] .dark-icon,
-[data-theme='dark'] .light-icon {
+[data-theme="light"] .dark-icon,
+[data-theme="dark"] .light-icon {
   display: none;
 }
 
-[data-theme='light'] .light-icon {
+[data-theme="light"] .light-icon {
   color: #f1c40f;
 }
 
-[data-theme='dark'] .dark-icon {
+[data-theme="dark"] .dark-icon {
   color: #f1c40f;
 }
 
@@ -135,13 +135,14 @@ button.theme-toggle i {
   background-color: var(--bg-primary);
 }
 
-input[type='search'] {
+input[type="search"] {
   background: var(--bg-transparent);
 }
 
-td input[type='text'],
-td input[type='number'] {
+td input[type="text"],
+td input[type="number"] {
   background-color: var(--bg-transparent);
+  width: -webkit-fill-available;
 }
 
 .decimal-controls-wrapper,
@@ -153,7 +154,7 @@ select.form-select {
   background-color: var(--bg-primary);
 }
 
-:root[data-theme='light'] {
+:root[data-theme="light"] {
   --bg-color: #ffffff;
   --text-color: #212529;
   --border-color: #dee2e6;
@@ -161,7 +162,7 @@ select.form-select {
   --navbar-toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(33, 37, 41, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-:root[data-theme='dark'] {
+:root[data-theme="dark"] {
   --bg-color: #212529;
   --text-color: #f8f9fa;
   --border-color: #495057;
@@ -169,7 +170,7 @@ select.form-select {
   --navbar-toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(248, 249, 250, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-[data-theme='dark'] .select-gas-components table tbody tr:hover {
+[data-theme="dark"] .select-gas-components table tbody tr:hover {
   background-color: rgba(
     34,
     193,
@@ -177,8 +178,8 @@ select.form-select {
     0.12
   ) !important; /* subtle teal highlight for dark */
 }
-[data-theme='dark'] .select-gas-components table tbody tr.selected,
-[data-theme='dark'] .select-gas-components table tbody tr.selected td {
+[data-theme="dark"] .select-gas-components table tbody tr.selected,
+[data-theme="dark"] .select-gas-components table tbody tr.selected td {
   background-color: rgba(
     34,
     193,
