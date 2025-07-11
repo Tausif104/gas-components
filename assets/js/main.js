@@ -240,14 +240,13 @@ function sortTable(column, type = "string") {
 
   // Set new sort direction (skip icon update for ID column)
   currentHeader.classList.add(isAsc ? "sort-desc" : "sort-asc");
-  if (column !== 0) {
-    // Skip icon update for ID column
-    const currentIcon = currentHeader.querySelector("i");
-    if (currentIcon) {
-      currentIcon.className = isAsc
-        ? "fas fa-sort-down ms-1"
-        : "fas fa-sort-up ms-1";
-    }
+
+  // Skip icon update for ID column
+  const currentIcon = currentHeader.querySelector("i");
+  if (currentIcon) {
+    currentIcon.className = isAsc
+      ? "fas fa-sort-down ms-1"
+      : "fas fa-sort-up ms-1";
   }
 
   // Get and sort rows
@@ -281,19 +280,17 @@ function handleDecimalControls(decimalCell, initialValue = 97.33) {
 
   if (!valueSpan || !decreaseBtn || !increaseBtn) return;
 
-  let currentValue = parseFloat(initialValue);
-  let decimalPlaces = 2; // Start with 2 decimal places
-  const maxDecimalPlaces = 4; // Maximum number of decimal places
-  const minDecimalPlaces = 0; // Minimum number of decimal places
+  let baseValue = parseFloat(initialValue);
+  let decimalPlaces = 2; // Default starting decimal places
+  const maxDecimalPlaces = 4;
+  const minDecimalPlaces = 0;
 
   function updateDisplay() {
-    // Use toFixed() to round the actual value to the specified decimal places
-    // This mimics Excel's decimal function behavior
-    const displayValue = currentValue.toFixed(decimalPlaces);
-    valueSpan.textContent = displayValue;
+    const roundedValue = Number(baseValue.toFixed(decimalPlaces));
+    valueSpan.textContent = roundedValue.toFixed(decimalPlaces);
   }
 
-  // Store the update function on the cell for global updates
+  // External method to set decimal places programmatically
   decimalCell.updateDecimalPlaces = function (newDecimalPlaces) {
     decimalPlaces = Math.max(
       minDecimalPlaces,
@@ -306,7 +303,7 @@ function handleDecimalControls(decimalCell, initialValue = 97.33) {
     if (decimalPlaces > minDecimalPlaces) {
       decimalPlaces--;
       updateDisplay();
-      // Update global decimal value display
+
       const globalDecimalValue = document.getElementById("globalDecimalValue");
       if (globalDecimalValue) {
         globalDecimalValue.textContent = decimalPlaces;
@@ -318,7 +315,7 @@ function handleDecimalControls(decimalCell, initialValue = 97.33) {
     if (decimalPlaces < maxDecimalPlaces) {
       decimalPlaces++;
       updateDisplay();
-      // Update global decimal value display
+
       const globalDecimalValue = document.getElementById("globalDecimalValue");
       if (globalDecimalValue) {
         globalDecimalValue.textContent = decimalPlaces;
@@ -346,6 +343,9 @@ function addNewColumn() {
   const projectPropertiesTable = document.querySelector(
     ".project-properties-table table"
   );
+  const projectPropertiesTableTwo = document.querySelector(
+    ".project-properties-table-two table"
+  );
   const gasCompositionTable = document.querySelector(
     ".gas-composition-table table"
   );
@@ -355,14 +355,29 @@ function addNewColumn() {
 
   if (
     !projectPropertiesTable ||
+    !projectPropertiesTableTwo ||
     !gasCompositionTable ||
     !calculatedPropertiesTable
   )
     return;
 
   // Generate new case number
+  // const existingCases = document.querySelectorAll(".case-column");
+  // const newCaseNumber = existingCases.length + 1;
   const existingCases = document.querySelectorAll(".case-column");
-  const newCaseNumber = existingCases.length + 1;
+  let maxCaseNumber = 0;
+
+  existingCases.forEach((col) => {
+    const match = col.textContent.match(/Case\s+(\d+)/);
+    if (match) {
+      const num = parseInt(match[1], 10);
+      if (num > maxCaseNumber) {
+        maxCaseNumber = num;
+      }
+    }
+  });
+
+  const newCaseNumber = maxCaseNumber + 1;
 
   // Add column to Project Properties table
   const projectHeader = projectPropertiesTable.querySelector("thead tr");
@@ -379,6 +394,27 @@ function addNewColumn() {
   // Add column to Project Properties table body rows
   const projectBodyRows = projectPropertiesTable.querySelectorAll("tbody tr");
   projectBodyRows.forEach((row) => {
+    const newCell = document.createElement("td");
+    const firstInput = row.querySelector("input");
+    if (firstInput) {
+      const inputType = firstInput.type;
+      if (inputType === "radio") {
+        // For radio buttons, add the same name attribute to maintain single-select behavior
+        const name = firstInput.name || "guarantee-point";
+        newCell.innerHTML = `<input type="${inputType}" name="${name}">`;
+      } else if (inputType === "checkbox") {
+        newCell.innerHTML = `<input type="${inputType}">`;
+      } else {
+        newCell.innerHTML = `<input type="${inputType}" placeholder="Enter Value">`;
+      }
+    } else {
+      newCell.innerHTML = "";
+    }
+    row.appendChild(newCell);
+  });
+  const projectTwoBodyRows =
+    projectPropertiesTableTwo.querySelectorAll("tbody tr");
+  projectTwoBodyRows.forEach((row) => {
     const newCell = document.createElement("td");
     const firstInput = row.querySelector("input");
     if (firstInput) {
@@ -774,6 +810,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const projectPropertiesTable = document.querySelector(
           ".project-properties-table table"
         );
+        const projectPropertiesTableTwo = document.querySelector(
+          ".project-properties-table-two table"
+        );
         const gasCompositionTable = document.querySelector(
           ".gas-composition-table table"
         );
@@ -783,11 +822,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (
           projectPropertiesTable &&
+          projectPropertiesTableTwo &&
           gasCompositionTable &&
           calculatedPropertiesTable
         ) {
           // Remove column from all tables
           projectPropertiesTable.querySelectorAll("tr").forEach((row) => {
+            const cell = row.cells[columnIndex];
+            if (cell) cell.remove();
+          });
+          projectPropertiesTableTwo.querySelectorAll("tr").forEach((row) => {
             const cell = row.cells[columnIndex];
             if (cell) cell.remove();
           });

@@ -115,9 +115,12 @@ button i {
 .search-bar form span {
   padding: 15px;
 }
-
 .selected-components-table tr {
   border-bottom: 1px solid #8f8f8f;
+}
+
+.selected-components-table tr:nth-child(n + 8) {
+  border-bottom: 0;
 }
 
 .selected-components-table table {
@@ -859,7 +862,7 @@ button img {
 .full-page-wrapper {
   background-color: var(--bg-primary);
   margin: 0 100px;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 50px;
 }
 
@@ -982,11 +985,6 @@ button.delete-column-btn {
   background-attachment: fixed !important;
 }
 
-.inlet-conditions {
-  overflow-x: hidden;
-  width: 100%;
-}
-
 .gas-composition-table td,
 .inlet-conditions td {
   min-width: 200px;
@@ -1001,9 +999,9 @@ section.inlet-conditions-section .inlet-conditions tr td:first-child {
 } */
 
 /* Override: if there are ≥ 8 rows, add border to last row */
-.selected-components-table table tbody tr:nth-last-child(1):nth-child(n + 8) {
-  border-bottom: 1px solid #ccc;
-}
+/* .selected-components-table table tbody tr:nth-last-child(1):nth-child(n + 8) {
+  border-bottom: 1px solid #8f8f8f;
+} */
 
 select.select-calculated-methods {
   border-radius: 3px !important;
@@ -1136,4 +1134,62 @@ select.select-calculated-methods {
 .project-properties-table,
 .gas-composition-table {
   scrollbar-width: none;
+}
+
+.project-properties-table tr:hover th:first-child,
+.project-properties-table tr:hover th:nth-child(2),
+.project-properties-table tr:hover th:nth-child(3),
+.project-properties-table tr:hover td:first-child,
+.project-properties-table tr:hover td:nth-child(2),
+.project-properties-table tr:hover td:nth-child(3),
+.calculated-properties-table tr:hover th:first-child,
+.calculated-properties-table tr:hover th:nth-child(2),
+.calculated-properties-table tr:hover th:nth-child(3),
+.calculated-properties-table tr:hover td:first-child,
+.calculated-properties-table tr:hover td:nth-child(2),
+.calculated-properties-table tr:hover td:nth-child(3),
+.gas-composition-table tr:hover th:first-child,
+.gas-composition-table tr:hover th:nth-child(2),
+.gas-composition-table tr:hover th:nth-child(3),
+.gas-composition-table tr:hover td:first-child,
+.gas-composition-table tr:hover td:nth-child(2),
+.gas-composition-table tr:hover td:nth-child(3),
+.gas-composition-table tr:hover td,
+.calculated-properties-table tr:hover td,
+.project-properties-table tr:hover td,
+.project-properties-table tr:hover th {
+  background-color: #f5f5f5;
+}
+.gas-composition-table table thead tr th:nth-child(2) {
+  padding-left: 0;
+}
+.project-properties-table table thead tr th:nth-child(2) {
+  padding-left: 0;
+  border-left: 0;
+  border-top: 0;
+}
+
+.sticky-controls {
+  position: sticky;
+  top: 10px;
+  z-index: 999999;
+  padding: 0.5rem 5px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  background: #fff;
+}
+
+.inlet-conditions-section {
+  position: relative;
+  overflow-y: visible;
+}
+.inlet-conditions .col-12.col-lg-2.col-2xl-1 {
+  box-shadow: rgba(0, 0, 0, 0.1) -6px 0px 8px;
+  margin-top: -22px;
+  margin-bottom: -40px;
+
+  padding-top: 25px;
+}
+.project-properties-table.project-properties-table tbody tr:nth-child(2) td {
+  border-top: 0;
 }

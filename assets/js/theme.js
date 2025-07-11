@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const tables = [
   document.querySelector(".project-properties-table"),
+  document.querySelector(".project-properties-table-two"),
   document.querySelector(".calculated-properties-table"),
   document.querySelector(".gas-composition-table"),
 ];
@@ -62,7 +63,9 @@ function syncAllScroll(sourceTable) {
 }
 
 function scrollTable(amount) {
-  const wrapper = document.querySelector(".project-properties-table");
+  const wrapper = document.querySelector(
+    ".project-properties-table.position-stickey"
+  );
   if (wrapper) {
     wrapper.scrollLeft += amount;
   }

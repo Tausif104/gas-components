@@ -15,6 +15,10 @@
   }
 }
 @media (max-width: 1200px) {
+  .inlet-conditions .col-12.col-lg-2.col-2xl-1 {
+    margin-top: -10px;
+    margin-bottom: -27px;
+  }
   .gas-characteristics {
     margin-top: 20px;
   }
@@ -60,8 +64,15 @@
     align-items: center;
     gap: 20px;
   }
-  .col-12.col-lg-2.col-2xl-1 .d-flex.gap-2.w-100.mb-3 {
-    margin-bottom: 0 !important;
+
+  .sticky-controls {
+    position: relative;
+  }
+  .inlet-conditions .col-12.col-lg-2.col-2xl-1 {
+    box-shadow: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 25px;
   }
 }
 @media (max-width: 768px) {
@@ -134,7 +145,7 @@
   .calculated-properties-table td:nth-child(3),
   .gas-composition-table th:nth-child(3),
   .gas-composition-table td:nth-child(3) {
-    left: 194px;
+    left: 190px;
     z-index: 3;
   }
   .inlet-conditions > .row.w-100 {
@@ -195,6 +206,9 @@
   }
   .gc-buttons-wrapper {
     flex-direction: column;
+  }
+  .calculated-properties-table {
+    margin-left: -10px;
   }
 }
 

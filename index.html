@@ -281,12 +281,40 @@
               <div class="inlet-conditions">
                 <div class="row w-100 gy-20">
                   <div class="col-12 col-lg-10 col-2xl-11">
-                       <div class="overflow-x-hidden">
-                <!-- project properties table -->
-                <div class="project-properties-table">
+                  <div class="overflow-x-hidde">
+   <div class="project-properties-table position-sticky top-0 bg-white" style="background: #fff; z-index: 9; padding-bottom: 0;">
+        <div class="table-full-width">
+          <table>
+            <thead>
+               <tr>
+                          <th></th>
+                          <th>Project properties</th>
+                          <th>UoM</th>
+                          <th class="case-column case-one">
+                            <span>
+                              Case 1
+                              <button class="delete-column-btn"><i class="fas fa-times"></i></button>
+                            </span>
+                          </th>
+                        </tr>
+            </thead>
+            <tbody>
+               <tr>
+                          <td></td>
+                          <td >Description</td>
+                          <td ></td>
+                          <td><input type="text" placeholder="Enter Value"></td>
+                        </tr>
+            </tbody>
+          </table>
+        </div>
+   </div>
+
+                     <!-- project properties table -->
+                <div class="project-properties-table project-properties-table-two">
                   <div class="table-full-width">
                     <table>
-                      <thead>
+                      <thead class="sticky-table-header d-none">
                         <tr>
                           <th></th>
                           <th>Project properties</th>
@@ -301,7 +329,7 @@
                       </thead>
 
                       <tbody>
-                        <tr>
+                        <tr class="d-none">
                           <td></td>
                           <td>Description</td>
                           <td></td>
@@ -730,11 +758,11 @@
                     </div>
                   </div>
                  </div>
-                
-                </div>
+                  </div>
                   </div>
                   <div class="col-12 col-lg-2 col-2xl-1">
-                    <div class="d-flex  gap-2 w-100 mb-3 table-nav__btn">
+                    <div class="sticky-controls">
+<div class="d-flex  gap-2 w-100 mb-3 table-nav__btn">
                        <button class="scroll-buttons scroll-left w-100" onclick="scrollTable(-600)">&#9664;</button>
                       <button class="scroll-buttons scroll-right w-100" onclick="scrollTable(600)">&#9654;</button>
                     </div>
@@ -742,11 +770,11 @@
                   <button class="gas-composition-add-btn">Add New Case</button>
                       <button class="gas-composition-refresh-btn">Renumber cases</button>
                 </div>
+                    </div>
+                    
                   </div>
                 </div>
-             
-             
-                
+                        
               </div>
             </div>
           </div>
