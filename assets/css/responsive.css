@@ -43,8 +43,17 @@
     padding: 0;
     margin: 0 50px;
   }
+  .sticky-controls {
+    margin-right: -35px;
+  }
 }
 @media (max-width: 992px) {
+  .inlet-conditions .col-12.col-lg-2.col-2xl-1 {
+    border-left: 0;
+  }
+  .sticky-controls {
+    margin-right: 0;
+  }
   .full-page-wrapper {
     padding: 0;
     margin: 0;

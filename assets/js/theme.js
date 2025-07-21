@@ -70,3 +70,31 @@ function scrollTable(amount) {
     wrapper.scrollLeft += amount;
   }
 }
+
+function updateLastRowBorder() {
+  const table = document.querySelector(".selected-components-table");
+  if (!table) return;
+
+  const rows = table.querySelectorAll("tr");
+
+  // First, remove any previously added "no-border" class
+  rows.forEach((row) => row.classList.remove("no-border"));
+
+  if (rows.length > 6) {
+    rows[rows.length - 1].classList.add("no-border");
+  }
+}
+
+// Run once on initial load
+updateLastRowBorder();
+
+// Watch for dynamic changes in the table body
+const tableBody = document.querySelector(".selected-components-table tbody");
+
+if (tableBody) {
+  const observer = new MutationObserver(() => {
+    updateLastRowBorder();
+  });
+
+  observer.observe(tableBody, { childList: true, subtree: false });
+}

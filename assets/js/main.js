@@ -512,6 +512,10 @@ function addNewColumn() {
           const cell = row.cells[columnIndex];
           if (cell) cell.remove();
         });
+        projectPropertiesTableTwo.querySelectorAll("tr").forEach((row) => {
+          const cell = row.cells[columnIndex];
+          if (cell) cell.remove();
+        });
 
         gasCompositionTable.querySelectorAll("tr").forEach((row) => {
           const cell = row.cells[columnIndex];
@@ -597,14 +601,17 @@ function relabelCaseColumns() {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
       const headerCell = btn.closest("th");
-      // Only allow deletion if it's not Case 1
+
       if (!headerCell.classList.contains("case-one")) {
         const columnIndex = Array.from(
           headerCell.parentElement.children
         ).indexOf(headerCell);
-        // Get all tables
+
         const projectPropertiesTable = document.querySelector(
-          ".project-properties-table table"
+          ".project-properties-table:not(.project-properties-table-two) table"
+        );
+        const projectPropertiesTableTwo = document.querySelector(
+          ".project-properties-table-two table"
         );
         const gasCompositionTable = document.querySelector(
           ".gas-composition-table table"
@@ -612,13 +619,18 @@ function relabelCaseColumns() {
         const calculatedPropertiesTable = document.querySelector(
           ".calculated-properties-table table"
         );
+
         if (
           projectPropertiesTable &&
           gasCompositionTable &&
+          projectPropertiesTableTwo &&
           calculatedPropertiesTable
         ) {
-          // Remove column from all tables
           projectPropertiesTable.querySelectorAll("tr").forEach((row) => {
+            const cell = row.cells[columnIndex];
+            if (cell) cell.remove();
+          });
+          projectPropertiesTableTwo.querySelectorAll("tr").forEach((row) => {
             const cell = row.cells[columnIndex];
             if (cell) cell.remove();
           });
@@ -794,61 +806,61 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Add delete column functionality to existing columns
-  const deleteButtons = document.querySelectorAll(".delete-column-btn");
-  deleteButtons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const headerCell = btn.closest("th");
+  // const deleteButtons = document.querySelectorAll(".delete-column-btn");
+  // deleteButtons.forEach((btn) => {
+  //   btn.addEventListener("click", (e) => {
+  //     e.stopPropagation();
+  //     const headerCell = btn.closest("th");
 
-      // Only allow deletion if it's not Case 1
-      if (!headerCell.classList.contains("case-one")) {
-        const columnIndex = Array.from(
-          headerCell.parentElement.children
-        ).indexOf(headerCell);
+  //     if (!headerCell.classList.contains("case-one")) {
+  //       const columnIndex = Array.from(
+  //         headerCell.parentElement.children
+  //       ).indexOf(headerCell);
+  //       console.log(columnIndex, "columnIndex");
 
-        // Get all tables
-        const projectPropertiesTable = document.querySelector(
-          ".project-properties-table table"
-        );
-        const projectPropertiesTableTwo = document.querySelector(
-          ".project-properties-table-two table"
-        );
-        const gasCompositionTable = document.querySelector(
-          ".gas-composition-table table"
-        );
-        const calculatedPropertiesTable = document.querySelector(
-          ".calculated-properties-table table"
-        );
+  //       const projectPropertiesTable = document.querySelector(
+  //         ".project-properties-table table"
+  //       );
+  //       const projectPropertiesTableTwo = document.querySelector(
+  //         ".project-properties-table-two table"
+  //       );
+  //       console.log(projectPropertiesTableTwo, "projectPropertiesTable");
 
-        if (
-          projectPropertiesTable &&
-          projectPropertiesTableTwo &&
-          gasCompositionTable &&
-          calculatedPropertiesTable
-        ) {
-          // Remove column from all tables
-          projectPropertiesTable.querySelectorAll("tr").forEach((row) => {
-            const cell = row.cells[columnIndex];
-            if (cell) cell.remove();
-          });
-          projectPropertiesTableTwo.querySelectorAll("tr").forEach((row) => {
-            const cell = row.cells[columnIndex];
-            if (cell) cell.remove();
-          });
+  //       const gasCompositionTable = document.querySelector(
+  //         ".gas-composition-table table"
+  //       );
+  //       const calculatedPropertiesTable = document.querySelector(
+  //         ".calculated-properties-table table"
+  //       );
 
-          gasCompositionTable.querySelectorAll("tr").forEach((row) => {
-            const cell = row.cells[columnIndex];
-            if (cell) cell.remove();
-          });
+  //       if (
+  //         projectPropertiesTable &&
+  //         projectPropertiesTableTwo &&
+  //         gasCompositionTable &&
+  //         calculatedPropertiesTable
+  //       ) {
+  //         projectPropertiesTable.querySelectorAll("tr").forEach((row) => {
+  //           const cell = row.cells[columnIndex];
+  //           if (cell) cell.remove();
+  //         });
+  //         projectPropertiesTableTwo.querySelectorAll("tr").forEach((row) => {
+  //           const cell = row.cells[columnIndex];
+  //           if (cell) cell.remove();
+  //         });
 
-          calculatedPropertiesTable.querySelectorAll("tr").forEach((row) => {
-            const cell = row.cells[columnIndex];
-            if (cell) cell.remove();
-          });
-        }
-      }
-    });
-  });
+  //         gasCompositionTable.querySelectorAll("tr").forEach((row) => {
+  //           const cell = row.cells[columnIndex];
+  //           if (cell) cell.remove();
+  //         });
+
+  //         calculatedPropertiesTable.querySelectorAll("tr").forEach((row) => {
+  //           const cell = row.cells[columnIndex];
+  //           if (cell) cell.remove();
+  //         });
+  //       }
+  //     }
+  //   });
+  // });
 
   // Add input event listeners to existing gas composition inputs
   const existingGasInputs = document.querySelectorAll(
