@@ -5,6 +5,8 @@
   --scrollbar-track: #f1f1f1;
   --scrollbar-thumb: #888;
   --scrollbar-thumb-hover: #555;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --stepper-color: #333;
 }
 
 [data-theme="dark"] {
@@ -19,6 +21,8 @@
   --scrollbar-track: #2d2d2d;
   --scrollbar-thumb: #666;
   --scrollbar-thumb-hover: #888;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --stepper-color: #fff;
 }
 
 /* Apply theme variables - only for dark mode */

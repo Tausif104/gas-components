@@ -42,6 +42,40 @@ function createSelectedComponentRow(data) {
 }
 
 // Function to calculate and update totals in gas composition table
+// function updateGasCompositionTotals() {
+//   const gasCompositionTable = document.querySelector(
+//     ".gas-composition-table table"
+//   );
+//   if (!gasCompositionTable) return;
+
+//   const totalRow = gasCompositionTable.querySelector(
+//     ".gas-composition-total-row"
+//   );
+//   if (!totalRow) return;
+
+//   // Get all input columns (skip first 3 columns: drag icon, description, and unit)
+//   const inputColumns = Array.from(totalRow.cells).slice(3);
+
+//   // For each input column
+//   inputColumns.forEach((totalCell, columnIndex) => {
+//     // Get all input values in this column (excluding total row)
+//     const inputs = gasCompositionTable.querySelectorAll(
+//       `tbody tr:not(.gas-composition-total-row) td:nth-child(${
+//         columnIndex + 4
+//       }) input`
+//     );
+//     let sum = 0;
+
+//     // Sum up all valid input values
+//     inputs.forEach((input) => {
+//       const value = parseFloat(input.value) || 0;
+//       sum += value;
+//     });
+
+//     // Update total cell with formatted sum
+//     totalCell.textContent = sum.toFixed(3);
+//   });
+// }
 function updateGasCompositionTotals() {
   const gasCompositionTable = document.querySelector(
     ".gas-composition-table table"
@@ -56,24 +90,37 @@ function updateGasCompositionTotals() {
   // Get all input columns (skip first 3 columns: drag icon, description, and unit)
   const inputColumns = Array.from(totalRow.cells).slice(3);
 
-  // For each input column
   inputColumns.forEach((totalCell, columnIndex) => {
-    // Get all input values in this column (excluding total row)
     const inputs = gasCompositionTable.querySelectorAll(
       `tbody tr:not(.gas-composition-total-row) td:nth-child(${
         columnIndex + 4
       }) input`
     );
-    let sum = 0;
 
-    // Sum up all valid input values
+    let sum = 0;
     inputs.forEach((input) => {
-      const value = parseFloat(input.value) || 0;
-      sum += value;
+      const value = parseFloat(input.value);
+      if (!isNaN(value)) {
+        sum += value;
+      }
     });
 
-    // Update total cell with formatted sum
-    totalCell.textContent = sum.toFixed(3);
+    // Show alert if total exceeds 100%
+    if (sum > 100) {
+      alert(
+        `Column ${columnIndex + 1} total exceeds 100%! (${sum.toFixed(3)}%)`
+      );
+    }
+
+    totalCell.textContent = Math.min(sum, 100).toFixed(3);
+
+    if (sum > 100) {
+      totalCell.style.color = "red";
+      totalCell.title = "Total exceeds 100%!";
+    } else {
+      totalCell.style.color = "";
+      totalCell.title = "";
+    }
   });
 }
 
@@ -914,5 +961,36 @@ document.addEventListener("DOMContentLoaded", function () {
   const refreshBtn = document.querySelector(".gas-composition-refresh-btn");
   if (refreshBtn) {
     refreshBtn.addEventListener("click", relabelCaseColumns);
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  function updateClearAllButtonState() {
+    const rows = document.querySelectorAll(
+      ".selected-components-table tbody tr"
+    );
+    const clearAllButton = document.querySelector(
+      ".button-wrapper button:nth-child(2)"
+    );
+
+    if (clearAllButton) {
+      if (rows.length <= 0) {
+        clearAllButton.disabled = true;
+        clearAllButton.classList.add("disabled");
+      } else {
+        clearAllButton.disabled = false;
+        clearAllButton.classList.remove("disabled");
+      }
+    }
+  }
+
+  // Run on page load
+  updateClearAllButtonState();
+
+  // Optional: re-check if components are dynamically added/removed
+  const observer = new MutationObserver(updateClearAllButtonState);
+  const tableBody = document.querySelector(".selected-components-table tbody");
+  if (tableBody) {
+    observer.observe(tableBody, { childList: true });
   }
 });

@@ -62,13 +62,22 @@ function syncAllScroll(sourceTable) {
   });
 }
 
+// function scrollTable(amount) {
+//   console.log("Scrolling table by:", amount);
+
+//   const wrapper = document.querySelector(
+//     ".project-properties-table.position-stickey"
+//   );
+//   if (wrapper) {
+//     wrapper.scrollLeft += amount;
+//   }
+// }
 function scrollTable(amount) {
-  const wrapper = document.querySelector(
-    ".project-properties-table.position-stickey"
-  );
-  if (wrapper) {
-    wrapper.scrollLeft += amount;
-  }
+  tables.forEach((table) => {
+    if (table) {
+      table.scrollLeft += amount;
+    }
+  });
 }
 
 function updateLastRowBorder() {

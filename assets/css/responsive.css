@@ -15,7 +15,7 @@
   }
 }
 @media (max-width: 1200px) {
-  .inlet-conditions .col-12.col-lg-2.col-2xl-1 {
+  .inlet-conditions .col-12.col-lg-3.col-xxl-2 {
     margin-top: -10px;
     margin-bottom: -27px;
   }
@@ -38,6 +38,12 @@
     padding: 30px;
   }
 }
+@media (max-width: 1280px) {
+  .full-page-wrapper {
+    padding: 0;
+    margin: 0 50px;
+  }
+}
 @media (max-width: 1200px) {
   .full-page-wrapper {
     padding: 0;
@@ -48,7 +54,7 @@
   }
 }
 @media (max-width: 992px) {
-  .inlet-conditions .col-12.col-lg-2.col-2xl-1 {
+  .inlet-conditions .col-12.col-lg-3.col-xxl-2 {
     border-left: 0;
   }
   .sticky-controls {
@@ -63,11 +69,11 @@
   }
 }
 @media (max-width: 992px) {
-  .col-12.col-lg-2.col-2xl-1 .add-refresh__btn {
+  .col-12.col-lg-3.col-xxl-2 .add-refresh__btn {
     flex-direction: row !important;
     width: 100% !important;
   }
-  .col-12.col-lg-2.col-2xl-1 {
+  .col-12.col-lg-3.col-xxl-2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -77,7 +83,7 @@
   .sticky-controls {
     position: relative;
   }
-  .inlet-conditions .col-12.col-lg-2.col-2xl-1 {
+  .inlet-conditions .col-12.col-lg-3.col-xxl-2 {
     box-shadow: none;
     margin-top: 0;
     margin-bottom: 0;
@@ -135,18 +141,18 @@
   }
   .gas-composition-table td,
   .inlet-conditions td {
-    min-width: 100px;
-    max-width: 100px;
+    min-width: 160px;
+    max-width: 160px;
   }
   section.inlet-conditions-section .inlet-conditions tr td:nth-child(2) {
-    min-width: 150px;
+    min-width: 200px;
     text-align: left;
-    max-width: 150px;
+    max-width: 200px;
   }
   section.inlet-conditions-section th:nth-child(2) {
     text-align: left;
     font-size: 18px;
-    width: 150px;
+    width: 200px;
   }
   .project-properties-table th:nth-child(3),
   .project-properties-table td:nth-child(3),
@@ -154,7 +160,7 @@
   .calculated-properties-table td:nth-child(3),
   .gas-composition-table th:nth-child(3),
   .gas-composition-table td:nth-child(3) {
-    left: 190px;
+    left: 240px;
     z-index: 3;
   }
   .inlet-conditions > .row.w-100 {
@@ -175,9 +181,16 @@
   .gc-buttons-wrapper {
     margin-left: 0;
   }
+
+  .stepper-container {
+    display: flex;
+    justify-content: flex-start;
+    margin: 40px 30px;
+    overflow-x: auto;
+  }
 }
 @media (max-width: 575px) {
-  .col-12.col-lg-2.col-2xl-1 {
+  .col-12.col-lg-3.col-xxl-2 {
     flex-direction: column;
   }
 }
@@ -203,7 +216,7 @@
   .gas-composition-table td:nth-child(3) {
     position: relative;
     left: 0;
-    background-color: #fff;
+
     z-index: 2;
   }
   .inlet-conditions .overflow-x-hidden {
@@ -222,13 +235,13 @@
 }
 
 @media (max-width: 425px) {
-  .col-12.col-lg-2.col-2xl-1 .add-refresh__btn {
+  .col-12.col-lg-3.col-xxl-2 .add-refresh__btn {
     flex-direction: column !important;
   }
-  .col-12.col-lg-2.col-2xl-1 {
+  .col-12.col-lg-3.col-xxl-2 {
     flex-direction: column;
   }
-  .col-12.col-lg-2.col-2xl-1 .table-nav__btn button {
+  .col-12.col-lg-3.col-xxl-2 .table-nav__btn button {
     width: 100% !important;
   }
 }
