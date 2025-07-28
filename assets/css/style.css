@@ -1267,9 +1267,9 @@ select.select-calculated-methods {
 }
 
 .step.done .circle {
-  background-color: #00bcd4;
+  background-color: #22c1a9;
   color: white;
-  border-color: #00bcd4;
+  border-color: #22c1a9;
 }
 
 .step.done .circle i.check {
