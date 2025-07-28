@@ -1295,7 +1295,9 @@ select.select-calculated-methods {
   width: 100%;
   background-color: #cfd8dc;
 }
-
+.step.done::after {
+  background-color: #22c1a9;
+}
 .step:last-child::after {
   content: none;
 }
